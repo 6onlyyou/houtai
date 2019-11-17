@@ -101,6 +101,7 @@ export default {
         ids: '',
         token: localStorage.getItem('logintoken')
       },
+      
       userparm: [], //搜索权限
       listData: [], //用户数据
       // 分页参数
@@ -205,7 +206,7 @@ export default {
 
         .then(res => {
           this.loading = false
-  
+
           if (res.success == false) {
             this.$message({
               type: 'info',
