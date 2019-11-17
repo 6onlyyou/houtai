@@ -311,7 +311,7 @@
           })
           .then(() => {
             let data = {
-              title: row.id
+              id: row.id
             }
             MachineConfigDelete(data)
               .then(res => {
