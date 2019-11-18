@@ -24,3 +24,4 @@ export const MachineConfigList = (params) => { return req("post", "/api/mngservi
 export const MachineConfigset = (params) => { return req("post", "/api/mngservice/api/banner/edit", params) };
 export const MachineConfigSave = (params) => { return req("post", "/api/mngservice/api/banner/add", params) };
 export const MachineConfigDelete = (params) => { return req("post","/api/mngservice/api/banner/delete" , params )};
+export const OrderList = (params) => { return req("post","/api/mngservice/api/bill/query" , params )};

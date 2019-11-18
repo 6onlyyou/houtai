@@ -11,14 +11,14 @@
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="formInline" class="user-search">
       <el-form-item label="搜索：">
-        <el-input size="small" v-model="formInline.machineNo" placeholder="输入用户ID"></el-input>
+        <el-input size="small" v-model="formInline.id" placeholder="输入用户ID"></el-input>
       </el-form-item>
       <el-form-item>
         <el-input size="small" v-model="formInline.orderNo" placeholder="输入用户昵称"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-select size="small" v-model="formInline.payType" placeholder="请选择">
-          <el-option v-for="type in payType" :label="type.key" :value="type.value" :key="type.value"></el-option>
+        <el-select size="small" v-model="formInline.type" placeholder="请选择">
+          <el-option v-for="type in type" :label="type.key" :value="type.value" :key="type.value"></el-option>
         </el-select>
       </el-form-item>
 
@@ -30,16 +30,16 @@
     <el-table size="small" :data="listData" highlight-current-row v-loading="loading" border element-loading-text="拼命加载中" style="width: 100%;">
       <el-table-column align="center" type="index" width="60">
       </el-table-column>
-      <el-table-column sortable prop="machineNo" label="消费名称" width="120" show-overflow-tooltip>
+      <el-table-column sortable prop="name" label="消费名称" width="120" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column sortable prop="orderNo" label="虚拟币数量" width="150" show-overflow-tooltip>
+      <el-table-column sortable prop="count" label="虚拟币数量" width="150" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column sortable prop="addTime" label="时间" width="180" show-overflow-tooltip>
+      <el-table-column sortable prop="time" label="时间" width="200" show-overflow-tooltip>
         <template slot-scope="scope">
-          <div>{{scope.row.addTime|timestampToTime}}</div>
+          <div>{{scope.row.time|time}}</div>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="操作" min-width="150">
+      <el-table-column align="center" label="操作" min-width="100">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">预览</el-button>
         </template>
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { OrderList, OrderRefund, OrderDelete } from '../../api/payMG'
+import { OrderList} from '../../api/payMG'
 import Pagination from '../../components/Pagination'
 export default {
   data() {
@@ -59,21 +59,25 @@ export default {
       loading: false, //是显示加载
       editFormVisible: false, //控制编辑页面显示与隐藏
       title: '预览',
-      payType: [
-        { key: '请选择', value: 0 },
-        { key: '现金', value: 1 },
-        { key: '支付宝', value: 2 },
-        { key: '微信', value: 3 },
-        { key: 'POS通', value: 4 },
-        { key: '闪付', value: 5 },
-        { key: 'POS通C扫B', value: 6 },
-        { key: '银联二维码', value: 8 },
-        { key: '会员余额支付', value: 9 }
+      type: [
+        { key: '请选择', value: "" },
+        { key: '微信充值', value: '微信充值' },
+        { key: '支付宝充值', value: '支付宝充值' },
+        { key: '公众号微信支付', value:'公众号微信支付'  },
+        { key: '招聘虚拟币领取', value: '招聘虚拟币领取'},
+        { key: '广告虚拟币领取', value: '广告虚拟币领取' },
+        { key: '发布广告', value: '发布广告' },
+        { key: '发布招聘', value: '发布招聘' },
+        { key: '开启广告', value:'开启广告' },
+        { key: '开启招聘', value: '开启招聘' },
+        { key: '关闭广告', value:'关闭广告' },
+        { key: '关闭招聘', value: '关闭招聘' },
+        { key: '邀请码奖励', value: '邀请码奖励'},
       ],
       editForm: {
         id: '',
         name: '',
-        payType: 1,
+        type: 1,
         partner: '',
         subMchId: '',
         appid: '',
@@ -89,10 +93,10 @@ export default {
       formInline: {
         page: 1,
         limit: 10,
-        machineNo: '',
+        id: '',
         orderNo: '',
         transId: '',
-        payType: 0,
+        type: '',
         orderStatus: 0,
         token: localStorage.getItem('logintoken')
       },
