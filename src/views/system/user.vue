@@ -11,7 +11,7 @@
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="formInline" class="user-search">
       <el-form-item label="搜索：">
-        <el-select size="small" v-model="formInline.isLock" placeholder="请选择">
+        <el-select size="small" v-model="formInline.isLock" placeholder="请选择" clearable @change="search">
           <el-option label="全部" value=""></el-option>
           <el-option label="开启" value="N"></el-option>
           <el-option label="关闭" value="Y"></el-option>
@@ -21,7 +21,7 @@
         <el-input size="small" v-model="formInline.city" placeholder="输入地区"></el-input>
       </el-form-item>
       <el-form-item label="">
-        <el-input size="small" v-model="formInline.userMobile" placeholder="输入昵称"></el-input>
+        <el-input size="small" v-model="formInline.id" placeholder="输入用户id"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button size="small" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
