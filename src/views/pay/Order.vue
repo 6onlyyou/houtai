@@ -60,7 +60,7 @@ export default {
       editFormVisible: false, //控制编辑页面显示与隐藏
       title: '预览',
       type: [
-        { key: '请选择', value: 0 },
+        { key: '请选择', value: "" },
         { key: '微信充值', value: '微信充值' },
         { key: '支付宝充值', value: '支付宝充值' },
         { key: '公众号微信支付', value:'公众号微信支付'  },
@@ -96,7 +96,7 @@ export default {
         id: '',
         orderNo: '',
         transId: '',
-        type: 0,
+        type: '',
         orderStatus: 0,
         token: localStorage.getItem('logintoken')
       },
