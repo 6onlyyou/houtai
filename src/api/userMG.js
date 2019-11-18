@@ -7,12 +7,31 @@ export const login = (params) => { return loginreq("post", "/api/login", params)
 export const menu = (params) => { return axios.get("/api/menu?&token=" + localStorage.getItem('logintoken')).then(res => res.data) };
 // 退出接口
 export const loginout = () => { return axios.delete("/api/login?&token=" + localStorage.getItem('logintoken')).then(res => res.data) };
-
+/**
+ * 招聘管理
+ **/
+// 招聘管理-招聘管理
+export const recruitQuery = (params) => { return req("post", "/api/mngservice/api/recruit/query", params) };
+/**
+ * 招聘管理
+ **/
+// 修改状态
+export const recruitOpen = (params) => { return req("post", "/api/mngservice/api/recruit/open", params) };
+/**
+ * 广告管理
+ **/
+// 广告管理-广告管理
+export const advertiseQuery = (params) => { return req("post", "/api/mngservice/api/advertise/query", params) };
+/**
+ * 广告管理
+ **/
+// 修改状态
+export const advertiseOpen = (params) => { return req("post", "/api/mngservice/api/advertise/open", params) };
 /**
  * 用户管理
  **/
 // 用户管理-获取用户列表
-export const userList = (params) => { return req("post", "/api/mngservice/api/banner/query", params) };
+export const userList = (params) => { return req("post", "userListy", params) };
 // 用户管理-保存（添加编辑）
 export const userSave = (params) => { return req("post", "/api/User/save", params) };
 // 用户管理-删除用户

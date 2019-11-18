@@ -9,19 +9,19 @@
       <el-breadcrumb-item>招聘列表</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- 搜索筛选 -->
-    <el-form :inline="true" :model="formInline" class="user-search">
+    <el-form :inline="true" :model="formInline" class="user-search" >
       <el-form-item label="搜索：">
-        <el-select size="small" v-model="formInline.isLock" placeholder="请选择">
-          <el-option label="全部" value=""></el-option>
-          <el-option label="开启" value="N"></el-option>
-          <el-option label="关闭" value="Y"></el-option>
+        <el-select size="small" v-model="formInline.state" placeholder="请选择" clearable @change="search" >
+          <el-option label="全部" value="" ></el-option>
+          <el-option label="开启" value="2" ></el-option>
+          <el-option label="关闭" value='0' ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="">
-        <el-input size="small" v-model="formInline.userName" placeholder="输入地区"></el-input>
+        <el-input size="small" v-model="formInline.city" placeholder="输入地区"></el-input>
       </el-form-item>
       <el-form-item label="">
-        <el-input size="small" v-model="formInline.userMobile" placeholder="输入昵称"></el-input>
+        <el-input size="small" v-model="formInline.id" placeholder="输入用户id"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button size="small" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
@@ -31,28 +31,32 @@
     <el-table size="small" @selection-change="selectChange" :data="userData" highlight-current-row v-loading="loading" border element-loading-text="拼命加载中" style="width: 100%;">
       <el-table-column align="center" type="selection" width="50">
       </el-table-column>
-      <el-table-column align="center" sortable prop="deptName" label="用户账号" width="120">
+      <el-table-column align="center" sortable prop="id" label="用户账号" width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="userName" label="公司名称" width="120">
+      <el-table-column align="center" sortable prop="companyName" label="公司名称" width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="userRealName" label="虚拟币数量" width="150">
+      <el-table-column align="center" sortable prop="numberOfVirtualCoins" label="虚拟币数量" width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="userMobile" label="红包的数量" width="150">
+      <el-table-column align="center" sortable prop="unclaimedVirtualCoins" label="剩余虚拟币数量" width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="userSex" label="广告内容" min-width="150">
+      <el-table-column align="center" sortable prop="redEnvelopeNumber" label="红包的数量" width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="userEmail" label="广告图片" min-width="120">
+      <el-table-column align="center" sortable prop="recruitingNumbers" label="招聘人数" min-width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="userEmail" label="城市" min-width="120">
+      <el-table-column align="center" sortable prop="workContent" label="工作内容" min-width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="editTime" label="发布时间" min-width="120">
+      <el-table-column align="center" sortable prop="label" label="工作标签" min-width="120">
+      </el-table-column>
+      <el-table-column align="center" sortable prop="salaryAndWelfare" label="工资待遇" min-width="120">
+      </el-table-column>
+      <el-table-column align="center" sortable prop="city" label="城市" min-width="120">
+      </el-table-column>
+      <el-table-column align="center" sortable prop="publichDate" label="发布时间" min-width="120">
+
+      </el-table-column>
+      <el-table-column align="center" sortable prop="state" label="状态" min-width="50">
         <template slot-scope="scope">
-          <div>{{scope.row.editTime|timestampToTime}}</div>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" sortable prop="isLock" label="状态" min-width="50">
-        <template slot-scope="scope">
-          <el-switch v-model="scope.row.isLock=='N'?nshow:fshow" active-color="#13ce66" inactive-color="#ff4949" @change="editType(scope.$index, scope.row)">
+          <el-switch v-model="scope.row.state=='2'?nshow:fshow" active-color="#13ce66" inactive-color="#ff4949" @change="editType(scope.$index, scope.row)">
           </el-switch>
         </template>
       </el-table-column>
@@ -66,8 +70,8 @@
 <script>
 // 导入请求方法
 import {
-  userList,
-  userSave,
+  recruitQuery,
+  recruitOpen,
   userDelete,
   userPwd,
   userExpireToken,
@@ -189,26 +193,32 @@ export default {
   methods: {
     // 获取数据方法
     getdata(parameter) {
-      //this.loading = true
+      this.loading = true
       /***
        * 调用接口，注释上面模拟数据 取消下面注释
        */
       // 获取用户列表
-      // userList(parameter).then(res => {
-      //   this.loading = false
-      //   if (res.success == false) {
-      //     this.$message({
-      //       type: 'info',
-      //       message: res.msg
-      //     })
-      //   } else {
-      //     this.userData = res.data
-      //     // 分页赋值
-      //     this.pageparm.currentPage = this.formInline.page
-      //     this.pageparm.pageSize = this.formInline.limit
-      //     this.pageparm.total = res.count
-      //   }
-      // })
+      // let data = {
+      //   city: "廊坊市"
+      // }
+      recruitQuery(parameter).then(res => {
+        this.loading = false
+        if (res.success == false) {
+          this.$message({
+            type: 'info',
+            message: res.msg
+          })
+        } else {
+          this.userData = res.data
+          // 分页赋值
+          this.pageparm.currentPage = this.formInline.page
+          this.pageparm.pageSize = this.formInline.limit
+          this.pageparm.total = res.count
+        }
+      }).catch(err => {
+            this.loading = false
+            this.$message.error('菜单加载失败，请稍后再试！')
+          })
     },
     // 分页插件事件
     callFather(parm) {
@@ -224,34 +234,54 @@ export default {
     editType: function(index, row) {
       this.loading = true
       let parm = {
-        lock: '',
-        userId: '',
-        token: localStorage.getItem('logintoken')
+        id: '',
+        state: '',
       }
-      parm.userId = row.userId
-      let lock = row.isLock
-      if (lock == 'N') {
-        parm.lock = 'Y'
+      parm.id = row.id
+      let lock = row.state
+      if (lock == '2') {
+        parm.state = '0'
       } else {
-        parm.lock = 'N'
+        parm.state = '2'
       }
       // 修改状态
-      userLock(parm).then(res => {
+      recruitOpen(parm).then(res => {
         this.loading = false
-        if (res.success == false) {
-          this.$message({
-            type: 'info',
-            message: res.msg
-          })
-        } else {
-          this.$message({
-            type: 'success',
-            message: '状态修改成功'
-          })
-          this.getdata(this.formInline)
-        }
+           this.getdata("")
       })
     },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //显示编辑界面
     handleEdit: function(index, row) {
       this.editFormVisible = true
@@ -635,4 +665,3 @@ export default {
   width: 100%;
 }
 </style>
-
