@@ -11,14 +11,14 @@
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="formInline" class="user-search">
       <el-form-item label="搜索：">
-        <el-input size="small" v-model="formInline.deptName" placeholder="输入兑换人ID"></el-input>
+        <el-input size="small" v-model="formInline.id" placeholder="输入兑换人ID"></el-input>
       </el-form-item>
       <el-form-item label="">
-        <el-input size="small" v-model="formInline.deptNo" placeholder="输入订单号"></el-input>
+        <el-input size="small" v-model="formInline.trackingNumber" placeholder="输入订单号"></el-input>
       </el-form-item>
 
       <el-form-item label="">
-        <el-input size="small" v-model="formInline.deptNo" placeholder="输入商品名称"></el-input>
+        <el-input size="small" v-model="formInline.goodsName" placeholder="输入商品名称"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button size="small" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
@@ -28,27 +28,24 @@
     <el-table size="small" :data="listData" highlight-current-row v-loading="loading" border element-loading-text="拼命加载中" style="width: 100%;">
       <el-table-column align="center" type="selection" width="60">
       </el-table-column>
-      <el-table-column sortable prop="deptName" label="用户ID" width="300">
+      <el-table-column sortable prop="10002" label="用户ID" width="300">
       </el-table-column>
-      <el-table-column sortable prop="deptNo" label="商品id" width="300">
+      <el-table-column sortable prop="goodsId" label="商品id" width="300">
       </el-table-column>
       <el-table-column sortable prop="deptName" label="商品名称" width="300">
       </el-table-column>
 
       <el-table-column sortable prop="name" label="领取人姓名" width="300">
+      </el-table-column>
+      <el-table-column sortable prop="receiveTime" label="领取时间" width="300">
         <template slot-scope="scope">
-          <div>{{scope.row.editTime|timestampToTime}}</div>
+          <div>{{scope.row.receiveTime|timestampToTime}}</div>
         </template>
       </el-table-column>
-      <el-table-column sortable prop="name" label="领取时间" width="300">
-        <template slot-scope="scope">
-          <div>{{scope.row.editTime|timestampToTime}}</div>
-        </template>
-      </el-table-column>
-      <el-table-column sortable prop="editUser" label="快递单号" width="300">
+      <el-table-column sortable prop="trackingNumber" label="快递单号" width="300">
       </el-table-column>
       </el-table-column>
-      <el-table-column sortable prop="editUser" label="领取状态" width="300">
+      <el-table-column sortable prop="state" label="领取状态" width="300">
       </el-table-column>
 
       <el-table-column align="center" label="操作" min-width="300">
@@ -103,7 +100,7 @@ export default {
         deptNo: [{ required: true, message: '请输入部门代码', trigger: 'blur' }]
       },
       formInline: {
-        id: '2141051782363720187140202471749266150154178',
+        id: '',
         // limit: 10,
         // varLable: '',
         // varName: '',
@@ -147,71 +144,6 @@ export default {
     // 获取公司列表
     getdata(parameter) {
       this.loading = true
-      // 模拟数据开始
-      // let res = {
-      //   code: 0,
-      //   msg: null,
-      //   count: 5,
-      //   data: [
-      //     {
-      //       addUser: null,
-      //       editUser: null,
-      //       addTime: 1521062371000,
-      //       editTime: 1526700200000,
-      //       deptId: 2,
-      //       deptName: '富帅分公司',
-      //       deptNo: '1',
-      //       parentId: 1
-      //     },
-      //     {
-      //       addUser: null,
-      //       editUser: null,
-      //       addTime: 1521063247000,
-      //       editTime: 1526652291000,
-      //       deptId: 3,
-      //       deptName: '上海测试',
-      //       deptNo: '02',
-      //       parentId: 1
-      //     },
-      //     {
-      //       addUser: null,
-      //       editUser: null,
-      //       addTime: 1526349555000,
-      //       editTime: 1526349565000,
-      //       deptId: 12,
-      //       deptName: '1',
-      //       deptNo: '11',
-      //       parentId: 1
-      //     },
-      //     {
-      //       addUser: null,
-      //       editUser: null,
-      //       addTime: 1526373178000,
-      //       editTime: 1526373178000,
-      //       deptId: 13,
-      //       deptName: '5',
-      //       deptNo: '5',
-      //       parentId: 1
-      //     },
-      //     {
-      //       addUser: null,
-      //       editUser: null,
-      //       addTime: 1526453107000,
-      //       editTime: 1526453107000,
-      //       deptId: 17,
-      //       deptName: 'v',
-      //       deptNo: 'v',
-      //       parentId: 1
-      //     }
-      //   ]
-      // }
-      // this.loading = false
-      // this.listData = res.data
-      // this.pageparm.currentPage = this.formInline.page
-      // this.pageparm.pageSize = this.formInline.limit
-      // this.pageparm.total = res.count
-      // 模拟数据结束
-
      /***
        * 调用接口，注释上面模拟数据 取消下面注释
        */
@@ -219,7 +151,6 @@ export default {
 
         .then(res => {
           this.loading = false
-
           if (res.success == false) {
             this.$message({
               type: 'info',

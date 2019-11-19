@@ -85,7 +85,7 @@ export const RoleRightSave = (params) => { return req("post", "/api/RoleRight/sa
  * 公司管理
  **/
 // 公司管理-获取公司列表
-export const deptList = (params) => { return req("post", "/api/appservice/wechat/qrcode/queryUserinfo", params) };
+export const deptList = (params) => { return req("post", "/api/mngservice/api/goods/query", params) };
 // 公司管理-保存（添加编辑）
 export const deptSave = (params) => { return req("post", "/api/Dept/save", params) };
 // 公司管理-删除公司

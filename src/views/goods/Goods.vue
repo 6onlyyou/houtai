@@ -11,7 +11,7 @@
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="formInline" class="user-search">
       <el-form-item label="搜索：">
-        <el-input size="small" v-model="formInline.deptName" placeholder="输入商品名称"></el-input>
+        <el-input size="small" v-model="formInline.goodsName" placeholder="输入商品名称"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button size="small" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
@@ -22,17 +22,14 @@
     <el-table size="small" :data="listData" highlight-current-row v-loading="loading" border element-loading-text="拼命加载中" style="width: 100%;">
       <el-table-column align="center" type="selection" width="60">
       </el-table-column>
+      <el-table-column sortable prop="goodsId" label="商品ID" width="300">
+      </el-table-column>
+      <el-table-column sortable prop="goodsName" label="商品名称" width="300">
+      </el-table-column>
 
-      <el-table-column sortable prop="deptName" label="商品名称" width="300">
+      <el-table-column sortable prop="goodsImg" label="商品图片" width="300">
       </el-table-column>
-      <el-table-column sortable prop="deptNo" label="商品" width="300">
-      </el-table-column>
-      <el-table-column sortable prop="editTime" label="商品图片" width="300">
-        <template slot-scope="scope">
-          <div>{{scope.row.editTime|timestampToTime}}</div>
-        </template>
-      </el-table-column>
-      <el-table-column sortable prop="editUser" label="商品价格" width="300">
+      <el-table-column sortable prop="goodsPrice" label="商品价格" width="300">
       </el-table-column>
 
       <el-table-column align="center" label="操作" min-width="300">
