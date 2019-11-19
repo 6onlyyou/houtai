@@ -33,7 +33,7 @@
       </el-table-column>
 
       <el-table-column align="center" label="操作" min-width="300">
-        <template slot-scope="scope">ID
+        <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="deleteUser(scope.$index, scope.row)">删除</el-button>
         </template>
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { deptList, deptSave, deptDelete } from '../../api/userMG'
+import { deptList, deptSave, deptDelete,goodsList } from '../../api/userMG'
 import Pagination from '../../components/Pagination'
 export default {
   data() {
@@ -126,12 +126,12 @@ export default {
   methods: {
     // 获取公司列表
     getdata(parameter) {
-     // this.loading = true
+     this.loading = true
 
       /***
        * 调用接口，注释上面模拟数据 取消下面注释
        */
-      deptList(parameter)
+      goodsList(parameter)
         .then(res => {
           this.loading = false
           if (res.success == false) {

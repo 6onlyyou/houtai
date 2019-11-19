@@ -31,7 +31,7 @@ export const advertiseOpen = (params) => { return req("post", "/api/mngservice/a
  * 用户管理
  **/
 // 用户管理-获取用户列表
-export const userList = (params) => { return req("post", "userListy", params) };
+export const userList = (params) => { return req("post", "/api/mngservice/api/user/query", params) };
 // 用户管理-保存（添加编辑）
 export const userSave = (params) => { return req("post", "/api/User/save", params) };
 // 用户管理-删除用户
@@ -42,16 +42,7 @@ export const userPwd = (params) => { return req("post", "/api/User/pwd", params)
 export const userLock = (params) => { return axios.get("/api/User/lock?userId=" + params.userId + "&lock=" + params.lock + "&token=" + localStorage.getItem('logintoken')) };
 // 用户管理-数据权限
 export const UserDeptTree = (params) => { return axios.get("/api/UserDept/tree/" + params + "?token=" + localStorage.getItem('logintoken')) };
-// 用户管理-数据权限保存
-export const UserDeptSave = (params) => { return req("post", "/api/UserDept/save", params) };
-// 用户管理-获取部门设置
-export const UserDeptdeptTree = (params) => { return axios.get("/api/UserDept/deptTree/" + params + "?token=" + localStorage.getItem('logintoken')) };
-// 用户管理-保存部门设置
-export const UserChangeDept = (params) => { return req("post", "/api/User/change/dept", params) };
-// 用户管理-用户下线
-export const userExpireToken = (params) => { return req("get", "/api/User/expireToken/" + params, {}) };
-// 用户管理-刷新缓存
-export const userFlashCache = (params) => { return req("get", "/api/User/flashCache/" + params, {}) };
+
 
 /**
  * 菜单管理
@@ -86,6 +77,7 @@ export const RoleRightSave = (params) => { return req("post", "/api/RoleRight/sa
  **/
 // 公司管理-获取公司列表
 export const deptList = (params) => { return req("post", "/api/mngservice/api/goods/query", params) };
+export const goodsList = (params) => { return req("post", "/api/mngservice/api/goods/queryGoods", params) };
 // 公司管理-保存（添加编辑）
 export const deptSave = (params) => { return req("post", "/api/Dept/save", params) };
 // 公司管理-删除公司

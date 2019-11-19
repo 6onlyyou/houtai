@@ -136,7 +136,7 @@ export default {
   methods: {
     // 获取公司列表
     getdata(parameter) {
-     // this.loading = true
+     this.loading = true
       /***
        * 调用接口，注释上面模拟数据 取消下面注释
        */

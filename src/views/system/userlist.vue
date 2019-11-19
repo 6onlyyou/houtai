@@ -10,6 +10,9 @@
     </el-breadcrumb>
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="formInline" class="user-search">
+      <el-form-item label="">
+        <el-input size="small" v-model="formInline.identyType" placeholder=""></el-input>
+      </el-form-item>
       <el-form-item label="搜索：">
         <el-select size="small" v-model="formInline.isLock" placeholder="请选择" clearable @change="search">
           <el-option label="全部" value=""></el-option>
@@ -36,29 +39,29 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="companyName" label="公司名称" width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="numberOfVirtualCoins" label="用户昵称" width="150">
+      <el-table-column align="center" sortable prop="nickName" label="用户昵称" width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="unclaimedVirtualCoins" label="用户头像" width="150">
+      <el-table-column align="center" sortable prop="headImg" label="用户头像" width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="redEnvelopeNumber" label="联系手机号" width="150">
+      <el-table-column align="center" sortable prop="cardPhoneNum" label="联系手机号" width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="userSex" label="绑定手机号" min-width="150">
+      <el-table-column align="center" sortable prop="phoneNumber" label="绑定手机号" min-width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="userEmail" label="金币数量" min-width="120">
+      <el-table-column align="center" sortable prop="totalCount" label="金币数量" min-width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="city" label="邀请码" min-width="120">
+      <el-table-column align="center" sortable prop="inviteCode" label="邀请码" min-width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="publichDate" label="城市" min-width="120">
+      <el-table-column align="center" sortable prop="city" label="城市" min-width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="publichDate" label="注册时间" min-width="120">
+      <el-table-column align="center" sortable prop="registrationDate" label="注册时间" min-width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="state" label="状态" min-width="50">
+      <!--<el-table-column align="center" sortable prop="state" label="状态" min-width="50">
         <template slot-scope="scope">
           <el-switch v-model="scope.row.isLock=='0'?nshow:fshow" active-color="#13ce66" inactive-color="#ff4949"
             @change="editType(scope.$index, scope.row)">
           </el-switch>
         </template>
-      </el-table-column>
+      </el-table-column>-->
 
     </el-table>
     <!-- 分页组件 -->
@@ -69,18 +72,7 @@
 <script>
   // 导入请求方法
   import {
-    advertiseQuery,
-    advertiseOpen,
-    userSave,
-    userDelete,
-    userPwd,
-    userExpireToken,
-    userFlashCache,
-
-    UserDeptTree,
-    UserDeptSave,
-    UserDeptdeptTree,
-    UserChangeDept
+    userList
   } from '../../api/userMG'
   import Pagination from '../../components/Pagination'
   export default {
@@ -163,6 +155,7 @@
         formInline: {
           page: 1,
           limit: 10,
+          identyType:2,
           deptId: '',
           userName: '',
           userMobile: '',
@@ -216,7 +209,7 @@
          * 调用接口，注释上面模拟数据 取消下面注释
          */
         // 获取用户列表
-        advertiseQuery(parameter).then(res => {
+        userList(parameter).then(res => {
           this.loading = false
           if (res.success == false) {
             this.$message({
@@ -277,20 +270,6 @@
           }
         })
       },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       //显示编辑界面
       handleEdit: function(index, row) {
@@ -421,99 +400,6 @@
           this.unitAccessshow = false
         }
       },
-      // 删除用户
-      deleteUser(index, row) {
-        this.$confirm('确定要删除吗?', '信息', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          })
-          .then(() => {
-            // 删除
-            userDelete(row.id)
-              .then(res => {
-                if (res.success) {
-                  this.$message({
-                    type: 'success',
-                    message: '数据已删除!'
-                  })
-                  this.getdata(this.formInline)
-                } else {
-                  this.$message({
-                    type: 'info',
-                    message: res.msg
-                  })
-                }
-              })
-              .catch(err => {
-                this.loading = false
-                this.$message.error('数据删除失败，请稍后再试！')
-              })
-          })
-          .catch(() => {
-            this.$message({
-              type: 'info',
-              message: '已取消删除！'
-            })
-          })
-      },
-      // 重置密码
-      resetpwd(index, row) {
-        this.resetpsd.userId = row.userId
-        this.$confirm('确定要重置密码吗?', '信息', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          })
-          .then(() => {
-            userPwd(this.resetpsd)
-              .then(res => {
-                if (res.success) {
-                  this.$message({
-                    type: 'success',
-                    message: '重置密码成功！'
-                  })
-                  this.getdata(this.formInline)
-                } else {
-                  this.$message({
-                    type: 'info',
-                    message: res.msg
-                  })
-                }
-              })
-              .catch(err => {
-                this.loading = false
-                this.$message.error('重置密码失败，请稍后再试！')
-              })
-          })
-          .catch(() => {
-            this.$message({
-              type: 'info',
-              message: '取消重置密码！'
-            })
-          })
-      },
-      // 数据权限
-      dataAccess: function(index, row) {
-        this.dataAccessshow = true
-        this.saveroleId = row.userId
-        UserDeptTree(row.userId)
-          .then(res => {
-            if (res.data.success) {
-              this.checkmenu = this.changemenu(res.data.data)
-              this.UserDept = this.changeArr(res.data.data)
-            } else {
-              this.$message({
-                type: 'info',
-                message: res.data.msg
-              })
-            }
-          })
-          .catch(err => {
-            this.loading = false
-            this.$message.error('获取权限失败，请稍后再试！')
-          })
-      },
       //数据格式化
       changeArr(data) {
         var pos = {}
@@ -559,109 +445,10 @@
           }
         }
         return tree
-      },
-      // 选中菜单
-      changemenu(arr) {
-        let change = []
-        for (let i = 0; i < arr.length; i++) {
-          if (arr[i].checked) {
-            change.push(arr[i].id)
-          }
-        }
-        return change
-      },
-      // 菜单权限-保存
-      menuPermSave() {
-        let parm = {
-          userId: this.saveroleId,
-          deptIds: ''
-        }
-        let node = this.$refs.tree.getCheckedNodes()
-        let moduleIds = []
-        if (node.length != 0) {
-          for (let i = 0; i < node.length; i++) {
-            moduleIds.push(node[i].id)
-          }
-          parm.deptIds = JSON.stringify(moduleIds)
-        }
-        UserDeptSave(parm)
-          .then(res => {
-            if (res.success) {
-              this.$message({
-                type: 'success',
-                message: '权限保存成功'
-              })
-              this.dataAccessshow = false
-              this.getdata(this.formInline)
-            } else {
-              this.$message({
-                type: 'info',
-                message: res.msg
-              })
-            }
-          })
-          .catch(err => {
-            this.loading = false
-            this.$message.error('权限保存失败，请稍后再试！')
-          })
-      },
-      // 下线用户
-      offlineUser(index, row) {
-        this.$confirm('确定要让' + row.userName + '用户下线吗?', '信息', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          })
-          .then(() => {
-            userExpireToken(row.userName)
-              .then(res => {
-                if (res.success) {
-                  this.$message({
-                    type: 'success',
-                    message: '用户' + row.userName + '强制下线成功！'
-                  })
-                  this.getdata(this.formInline)
-                } else {
-                  this.$message({
-                    type: 'info',
-                    message: res.msg
-                  })
-                }
-              })
-              .catch(err => {
-                this.loading = false
-                this.$message.error('用户下线失败，请稍后再试！')
-              })
-          })
-          .catch(() => {
-            this.$message({
-              type: 'info',
-              message: '已取消'
-            })
-          })
-      },
-      // 刷新缓存
-      refreshCache(index, row) {
-        userFlashCache(row.userName)
-          .then(res => {
-            if (res.success) {
-              this.$message({
-                type: 'success',
-                message: '刷新成功！'
-              })
-              this.getdata(this.formInline)
-            } else {
-              this.$message({
-                type: 'info',
-                message: res.msg
-              })
-            }
-          })
-          .catch(err => {
-            this.loading = false
-            this.$message.error('刷新失败，请稍后再试！')
-          })
       }
+
+
+
     }
   }
 </script>

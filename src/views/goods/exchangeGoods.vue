@@ -28,11 +28,11 @@
     <el-table size="small" :data="listData" highlight-current-row v-loading="loading" border element-loading-text="拼命加载中" style="width: 100%;">
       <el-table-column align="center" type="selection" width="60">
       </el-table-column>
-      <el-table-column sortable prop="10002" label="用户ID" width="300">
+      <el-table-column sortable prop="userID" label="用户ID" width="300">
       </el-table-column>
       <el-table-column sortable prop="goodsId" label="商品id" width="300">
       </el-table-column>
-      <el-table-column sortable prop="deptName" label="商品名称" width="300">
+      <el-table-column sortable prop="goodsName" label="商品名称" width="300">
       </el-table-column>
 
       <el-table-column sortable prop="name" label="领取人姓名" width="300">

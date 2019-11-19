@@ -11,11 +11,11 @@
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="formInline" class="user-search">
       <el-form-item label="搜索：">
-        <el-select size="small" v-model="formInline.isLock" placeholder="请选择" clearable @change="search">
+     <!--   <el-select size="small" v-model="formInline.isLock" placeholder="请选择" clearable @change="search">
           <el-option label="全部" value=""></el-option>
           <el-option label="开启" value="N"></el-option>
           <el-option label="关闭" value="Y"></el-option>
-        </el-select>
+        </el-select>-->
       </el-form-item>
       <el-form-item label="">
         <el-input size="small" v-model="formInline.city" placeholder="输入地区"></el-input>
@@ -34,37 +34,37 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="id" label="用户id" width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="companyName" label="用户昵称" width="120">
+      <el-table-column align="center" sortable prop="nickName" label="用户昵称" width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="numberOfVirtualCoins" label="用户头像" width="150">
+      <el-table-column align="center" sortable prop="headImg" label="用户头像" width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="redEnvelopeNumber" label="绑定手机号" width="150">
+      <el-table-column align="center" sortable prop="phoneNumber" label="绑定手机号" width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="publichDate" label="金币数量" min-width="120">
+      <el-table-column align="center" sortable prop="totalCount" label="金币数量" min-width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="userSex" label="求职意向" min-width="150">
+      <el-table-column align="center" sortable prop="labelName" label="求职意向" min-width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="userEmail" label="简历图片与视频" min-width="120">
+      <el-table-column align="center" sortable prop="picOrVedioSource" label="简历图片与视频" min-width="200">
       </el-table-column>
-      <el-table-column align="center" sortable prop="city" label="年龄" min-width="120">
+      <el-table-column align="center" sortable prop="age" label="年龄" min-width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="publichDate" label="性别" min-width="120">
+      <el-table-column align="center" sortable prop="sex" label="性别" min-width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="publichDate" label="联系电话" min-width="120">
+      <el-table-column align="center" sortable prop="cardPhoneNum" label="联系电话" min-width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="publichDate" label="城市" min-width="120">
+      <el-table-column align="center" sortable prop="city" label="城市" min-width="120">
       </el-table-column>
-      <el-table-column align="center" sortable prop="publichDate" label="注册时间" min-width="120">
+      <el-table-column align="center" sortable prop="registrationDate" label="注册时间" min-width="120">
       </el-table-column>
    
-      <el-table-column align="center" sortable prop="state" label="状态" min-width="50">
+      <!--<el-table-column align="center" sortable prop="state" label="状态" min-width="50">
         <template slot-scope="scope">
           <el-switch v-model="scope.row.isLock=='0'?nshow:fshow" active-color="#13ce66" inactive-color="#ff4949"
             @change="editType(scope.$index, scope.row)">
           </el-switch>
         </template>
       </el-table-column>
-
+-->
     </el-table>
     <!-- 分页组件 -->
     <Pagination v-bind:child-msg="pageparm" @callFather="callFather"></Pagination>
@@ -74,18 +74,7 @@
 <script>
   // 导入请求方法
   import {
-    advertiseQuery,
-    advertiseOpen,
-    userSave,
-    userDelete,
-    userPwd,
-    userExpireToken,
-    userFlashCache,
-
-    UserDeptTree,
-    UserDeptSave,
-    UserDeptdeptTree,
-    UserChangeDept
+    userList
   } from '../../api/userMG'
   import Pagination from '../../components/Pagination'
   export default {
@@ -168,6 +157,7 @@
         formInline: {
           page: 1,
           limit: 10,
+          identyType:1,
           deptId: '',
           userName: '',
           userMobile: '',
@@ -221,7 +211,7 @@
          * 调用接口，注释上面模拟数据 取消下面注释
          */
         // 获取用户列表
-        advertiseQuery(parameter).then(res => {
+        userList(parameter).then(res => {
           this.loading = false
           if (res.success == false) {
             this.$message({

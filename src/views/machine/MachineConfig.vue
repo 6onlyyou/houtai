@@ -211,7 +211,7 @@
     methods: {
       // 获取列表数据
       getdata(parameter) {
-        //this.loading = true
+        this.loading = true
         /***
          * 调用接口，注释上面模拟数据 取消下面注释
          */
