@@ -123,14 +123,14 @@ export default new Router({
         },{
           path: '/system/userlist',
           name: '招聘列表',
-          component: zhaopinzp,
+          component: zhaopin,
           meta: {
             requireAuth: true
           }
         },{
           path: '/system/userqiuzhilist',
           name: '求职列表',
-          component: zhaopinlist,
+          component: zhaopin,
           meta: {
             requireAuth: true
           }
