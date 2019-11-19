@@ -100,7 +100,7 @@ export default {
               hasThird: 'N',
               url: 'system/userqiuzhilist',
               menus: null
-            }
+            },
           ]
         },
         {
