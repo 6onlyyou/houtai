@@ -29,7 +29,8 @@ import Order from '@/views/pay/Order';
 import user from '@/views/system/user';
 // 用户管理
 import zhaopin from '@/views/system/zhaopin';
-
+import zhaopin1 from '@/views/system/userqiuzhilist';
+import zhaopin2 from '@/views/system/userlist';
 /**
  * 公告栏管理
  */
@@ -123,14 +124,14 @@ export default new Router({
         },{
           path: '/system/userlist',
           name: '招聘列表',
-          component: zhaopin,
+          component: zhaopin2,
           meta: {
             requireAuth: true
           }
         },{
           path: '/system/userqiuzhilist',
           name: '求职列表',
-          component: zhaopin,
+          component: zhaopin1,
           meta: {
             requireAuth: true
           }
