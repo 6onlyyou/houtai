@@ -48,7 +48,7 @@ import statistics from '@/views/charts/statistics';
 // 启用路由
 Vue.use(Router);
 
-// 导出路由 
+// 导出路由
 export default new Router({
     routes: [{
         path: '/',
@@ -117,6 +117,20 @@ export default new Router({
           path: '/system/zhaopin',
           name: '招聘管理',
           component: zhaopin,
+          meta: {
+            requireAuth: true
+          }
+        },{
+          path: '/system/userlist',
+          name: '招聘列表',
+          component: zhaopinzp,
+          meta: {
+            requireAuth: true
+          }
+        },{
+          path: '/system/userqiuzhilist',
+          name: '求职列表',
+          component: zhaopinlist,
           meta: {
             requireAuth: true
           }
