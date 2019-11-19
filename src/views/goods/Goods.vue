@@ -11,10 +11,7 @@
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="formInline" class="user-search">
       <el-form-item label="搜索：">
-        <el-input size="small" v-model="formInline.deptName" placeholder="输入部门名称"></el-input>
-      </el-form-item>
-      <el-form-item label="">
-        <el-input size="small" v-model="formInline.deptNo" placeholder="输入部门代码"></el-input>
+        <el-input size="small" v-model="formInline.deptName" placeholder="输入商品名称"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button size="small" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
@@ -28,7 +25,7 @@
 
       <el-table-column sortable prop="deptName" label="商品名称" width="300">
       </el-table-column>
-      <el-table-column sortable prop="deptNo" label="商品id" width="300">
+      <el-table-column sortable prop="deptNo" label="商品" width="300">
       </el-table-column>
       <el-table-column sortable prop="editTime" label="商品图片" width="300">
         <template slot-scope="scope">
@@ -39,7 +36,7 @@
       </el-table-column>
 
       <el-table-column align="center" label="操作" min-width="300">
-        <template slot-scope="scope">
+        <template slot-scope="scope">ID
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="deleteUser(scope.$index, scope.row)">删除</el-button>
         </template>

@@ -11,31 +11,44 @@
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="formInline" class="user-search">
       <el-form-item label="搜索：">
-        <el-input size="small" v-model="formInline.deptName" placeholder="输入部门名称"></el-input>
+        <el-input size="small" v-model="formInline.deptName" placeholder="输入兑换人ID"></el-input>
       </el-form-item>
       <el-form-item label="">
-        <el-input size="small" v-model="formInline.deptNo" placeholder="输入部门代码"></el-input>
+        <el-input size="small" v-model="formInline.deptNo" placeholder="输入订单号"></el-input>
+      </el-form-item>
+
+      <el-form-item label="">
+        <el-input size="small" v-model="formInline.deptNo" placeholder="输入商品名称"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button size="small" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
-        <el-button size="small" type="primary" icon="el-icon-plus" @click="handleEdit()">添加</el-button>
       </el-form-item>
     </el-form>
     <!--列表-->
     <el-table size="small" :data="listData" highlight-current-row v-loading="loading" border element-loading-text="拼命加载中" style="width: 100%;">
       <el-table-column align="center" type="selection" width="60">
       </el-table-column>
-
-      <el-table-column sortable prop="deptName" label="商品名称" width="300">
+      <el-table-column sortable prop="deptName" label="用户ID" width="300">
       </el-table-column>
       <el-table-column sortable prop="deptNo" label="商品id" width="300">
       </el-table-column>
-      <el-table-column sortable prop="editTime" label="商品价格" width="300">
+      <el-table-column sortable prop="deptName" label="商品名称" width="300">
+      </el-table-column>
+
+      <el-table-column sortable prop="name" label="领取人姓名" width="300">
         <template slot-scope="scope">
           <div>{{scope.row.editTime|timestampToTime}}</div>
         </template>
       </el-table-column>
-      <el-table-column sortable prop="editUser" label="商品展示" width="300">
+      <el-table-column sortable prop="name" label="领取时间" width="300">
+        <template slot-scope="scope">
+          <div>{{scope.row.editTime|timestampToTime}}</div>
+        </template>
+      </el-table-column>
+      <el-table-column sortable prop="editUser" label="快递单号" width="300">
+      </el-table-column>
+      </el-table-column>
+      <el-table-column sortable prop="editUser" label="领取状态" width="300">
       </el-table-column>
 
       <el-table-column align="center" label="操作" min-width="300">
