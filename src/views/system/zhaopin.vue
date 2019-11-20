@@ -56,7 +56,7 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="state" label="状态" min-width="100">
         <template slot-scope="scope">
-          <el-switch v-model="scope.row.state=='2'?nshow:fshow" active-color="#13ce66" inactive-color="#ff4949" @change="editType(scope.$index, scope.row)">
+          <el-switch v-model="scope.row.state=='0'?nshow:fshow" active-color="#13ce66" inactive-color="#ff4949" @change="editType(scope.$index, scope.row)">
           </el-switch>
         </template>
       </el-table-column>
