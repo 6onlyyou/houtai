@@ -239,10 +239,10 @@ export default {
       }
       parm.id = row.id
       let lock = row.state
-      if (lock == '2') {
+      if (lock == '1') {
         parm.state = '0'
       } else {
-        parm.state = '2'
+        parm.state = '1'
       }
       // 修改状态
       recruitOpen(parm).then(res => {
