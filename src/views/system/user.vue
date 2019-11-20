@@ -32,19 +32,19 @@
       border element-loading-text="拼命加载中" style="width: 100%;">
       <el-table-column align="center" type="selection" width="50">
       </el-table-column>
-      <el-table-column align="center" sortable prop="id" label="用户账号" width="120">
+      <el-table-column align="center" sortable prop="userId" label="用户账号" width="120">
       </el-table-column>
       <el-table-column align="center" sortable prop="companyName" label="公司名称" width="120">
       </el-table-column>
       <el-table-column align="center" sortable prop="numberOfVirtualCoins" label="虚拟币数量" width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="unclaimedVirtualCoins" label="剩余虚拟币数量" width="150">
+      <el-table-column align="center" sortable prop="unclaimedVirtualCoins" label="剩余虚拟币数量" width="170">
       </el-table-column>
       <el-table-column align="center" sortable prop="redEnvelopeNumber" label="红包的数量" width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="userSex" label="广告内容" min-width="150">
+      <el-table-column align="center" sortable prop="advertisementContent" label="广告内容" min-width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="userEmail" label="广告图片" min-width="120">
+      <el-table-column align="center" sortable prop="advertisementImg" label="广告图片" min-width="120">
       </el-table-column>
       <el-table-column align="center" sortable prop="city" label="城市" min-width="120">
       </el-table-column>
@@ -52,7 +52,7 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="state" label="状态" min-width="50">
         <template slot-scope="scope">
-          <el-switch v-model="scope.row.isLock=='0'?nshow:fshow" active-color="#13ce66" inactive-color="#ff4949"
+          <el-switch v-model="scope.row.state=='0'?nshow:fshow" active-color="#13ce66" inactive-color="#ff4949"
             @change="editType(scope.$index, scope.row)">
           </el-switch>
         </template>
@@ -74,7 +74,7 @@
     userPwd,
     userExpireToken,
     userFlashCache,
-
+    userLock,
     UserDeptTree,
     UserDeptSave,
     UserDeptdeptTree,
@@ -247,16 +247,16 @@
       editType: function(index, row) {
         this.loading = true
         let parm = {
-          lock: '',
-          userId: '',
+          state: '',
+          id: '',
           token: localStorage.getItem('logintoken')
         }
-        parm.userId = row.id
-        let lock = row.state
-        if (lock == '2') {
+        parm.id = row.id
+        let state = row.state
+        if (state == '1') {
           parm.state = '0'
         } else {
-          parm.state = '2'
+          parm.state = '1'
         }
         // 修改状态
         userLock(parm).then(res => {
@@ -275,20 +275,6 @@
           }
         })
       },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       //显示编辑界面
       handleEdit: function(index, row) {

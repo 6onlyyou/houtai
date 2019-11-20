@@ -37,7 +37,7 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="numberOfVirtualCoins" label="虚拟币数量" width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="unclaimedVirtualCoins" label="剩余虚拟币数量" width="150">
+      <el-table-column align="center" sortable prop="unclaimedVirtualCoins" label="剩余虚拟币数量" width="170">
       </el-table-column>
       <el-table-column align="center" sortable prop="redEnvelopeNumber" label="红包的数量" width="150">
       </el-table-column>
@@ -54,7 +54,7 @@
       <el-table-column align="center" sortable prop="publichDate" label="发布时间" min-width="120">
 
       </el-table-column>
-      <el-table-column align="center" sortable prop="state" label="状态" min-width="50">
+      <el-table-column align="center" sortable prop="state" label="状态" min-width="100">
         <template slot-scope="scope">
           <el-switch v-model="scope.row.state=='2'?nshow:fshow" active-color="#13ce66" inactive-color="#ff4949" @change="editType(scope.$index, scope.row)">
           </el-switch>
@@ -247,7 +247,18 @@ export default {
       // 修改状态
       recruitOpen(parm).then(res => {
         this.loading = false
-           this.getdata("")
+        if (res.success == false) {
+          this.$message({
+            type: 'info',
+            message: res.msg
+          })
+        } else {
+          this.$message({
+            type: 'success',
+            message: '状态修改成功'
+          })
+          this.getdata(this.formInline)
+        }
       })
     },
 

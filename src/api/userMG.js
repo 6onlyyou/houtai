@@ -16,7 +16,14 @@ export const recruitQuery = (params) => { return req("post", "/api/mngservice/ap
  * 招聘管理
  **/
 // 修改状态
-export const recruitOpen = (params) => { return req("post", "/api/mngservice/api/recruit/open", params) };
+export const recruitOpen = (params) => {
+  return axios.get("/api/mngservice/api/recruit/open?id=" + params.id + "&state=" + params.state + "&token=" + localStorage.getItem('logintoken'))
+  //return req("post", "/api/mngservice/api/recruit/open", params)
+};
+
+
+
+
 /**
  * 广告管理
  **/
@@ -38,8 +45,8 @@ export const userSave = (params) => { return req("post", "/api/User/save", param
 export const userDelete = (params) => { return axios.delete("/api/User/delete?ids=" + params + "&token=" + localStorage.getItem('logintoken')).then(res => res.data) };
 // 用户管理-重置密码
 export const userPwd = (params) => { return req("post", "/api/User/pwd", params) };
-// 用户管理-修改状态
-export const userLock = (params) => { return axios.get("/api/User/lock?userId=" + params.userId + "&lock=" + params.lock + "&token=" + localStorage.getItem('logintoken')) };
+// 广告管理-关闭广告
+export const userLock = (params) => { return axios.get("/api/mngservice/api/advertise/close?id=" + params.id + "&state=" + params.state + "&token=" + localStorage.getItem('logintoken')) };
 // 用户管理-数据权限
 export const UserDeptTree = (params) => { return axios.get("/api/UserDept/tree/" + params + "?token=" + localStorage.getItem('logintoken')) };
 
