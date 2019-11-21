@@ -1,6 +1,4 @@
-/**
-* 广告管理
-*/
+
 <template>
   <div>
     <!-- 面包屑导航 -->
@@ -10,9 +8,9 @@
     </el-breadcrumb>
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="formInline" class="user-search">
-      <el-form-item label="">
+    <!--  <el-form-item label="">
         <el-input size="small" v-model="formInline.identyType" placeholder=""></el-input>
-      </el-form-item>
+      </el-form-item>-->
       <el-form-item label="搜索：">
         <el-select size="small" v-model="formInline.isLock" placeholder="请选择" clearable @change="search">
           <el-option label="全部" value=""></el-option>
@@ -155,7 +153,7 @@
         formInline: {
           page: 1,
           limit: 10,
-          identyType:2,
+          identyType:'2',
           deptId: '',
           userName: '',
           userMobile: '',

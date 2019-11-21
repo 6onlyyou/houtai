@@ -32,7 +32,7 @@ const req = (method, url, params) => {
 
     return axios({
         method: method,
-        url: url,
+        url: "/api/mngservice"+url,
 
         data: params,
         dataType: "JSONP",

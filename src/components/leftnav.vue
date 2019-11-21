@@ -132,7 +132,7 @@ export default {
               icon: 'icon-cus-manage',
               menuname: '广告列表',
               hasThird: 'N',
-              url: 'system/user',
+              url: 'system/guanggao',
               menus: null
             }
           ]
@@ -149,7 +149,7 @@ export default {
               icon: 'icon-provider-manage',
               menuname: '公告栏列表',
               hasThird: 'N',
-              url: 'machine/MachineConfig',
+              url: 'machine/gonggaolan',
               menus: null
             }
           ]

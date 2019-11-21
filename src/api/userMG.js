@@ -1,60 +1,49 @@
 import axios from 'axios';
 import { loginreq, req } from './axiosFun';
 
+// 招聘管理
+export const recruitQuery = (params) => { return req("post", "/api/recruit/query", params) };
+export const recruitOpen = (params) => {
+  return axios.get("/api/mngservice/api/recruit/open?id=" + params.id + "&state=" + params.state + "&token=" + localStorage.getItem('logintoken'))
+  //return req("post", "/api/mngservice/api/recruit/open", params)
+};
+
+// 广告管理
+export const advertiseQuery = (params) => { return req("post", "/api/advertise/query", params) };
+//export const advertiseOpen = (params) => { return req("get", "/api/advertise/open", params) };
+export const advertiseOpen = (params) => { return axios.get("/api/mngservice/api/advertise/close?id=" + params.id + "&state=" + params.state + "&token=" + localStorage.getItem('logintoken')) };
+
+//获取用户列表
+export const userList = (params) => { return req("post", "/api/user/query", params) };
+// 用户管理-保存（添加编辑）
+export const userSave = (params) => { return req("post", "/api/User/save", params) };
+
+//用户兑换商品管理
+export const usergoodsList = (params) => { return req("post", "/api/goods/query", params) };
+//商品信息管理
+export const goodsList = (params) => { return req("post", "/api/goods/queryGoods", params) };
+
+
 // 登录接口
 export const login = (params) => { return loginreq("post", "/api/login", params) };
 // 获取用户菜单
 export const menu = (params) => { return axios.get("/api/menu?&token=" + localStorage.getItem('logintoken')).then(res => res.data) };
 // 退出接口
 export const loginout = () => { return axios.delete("/api/login?&token=" + localStorage.getItem('logintoken')).then(res => res.data) };
-/**
- * 招聘管理
- **/
-// 招聘管理-招聘管理
-export const recruitQuery = (params) => { return req("post", "/api/mngservice/api/recruit/query", params) };
-/**
- * 招聘管理
- **/
-// 修改状态
-export const recruitOpen = (params) => {
-  return axios.get("/api/mngservice/api/recruit/open?id=" + params.id + "&state=" + params.state + "&token=" + localStorage.getItem('logintoken'))
-  //return req("post", "/api/mngservice/api/recruit/open", params)
-};
 
 
 
-
-/**
- * 广告管理
- **/
-// 广告管理-广告管理
-export const advertiseQuery = (params) => { return req("post", "/api/mngservice/api/advertise/query", params) };
-/**
- * 广告管理
- **/
-// 修改状态
-export const advertiseOpen = (params) => { return req("post", "/api/mngservice/api/advertise/open", params) };
-/**
- * 用户管理
- **/
-// 用户管理-获取用户列表
-export const userList = (params) => { return req("post", "/api/mngservice/api/user/query", params) };
-// 用户管理-保存（添加编辑）
-export const userSave = (params) => { return req("post", "/api/User/save", params) };
 // 用户管理-删除用户
 export const userDelete = (params) => { return axios.delete("/api/User/delete?ids=" + params + "&token=" + localStorage.getItem('logintoken')).then(res => res.data) };
 // 用户管理-重置密码
 export const userPwd = (params) => { return req("post", "/api/User/pwd", params) };
-// 广告管理-关闭广告
-export const userLock = (params) => { return axios.get("/api/mngservice/api/advertise/close?id=" + params.id + "&state=" + params.state + "&token=" + localStorage.getItem('logintoken')) };
 // 用户管理-数据权限
 export const UserDeptTree = (params) => { return axios.get("/api/UserDept/tree/" + params + "?token=" + localStorage.getItem('logintoken')) };
-
 
 /**
  * 菜单管理
  **/
-// 菜单管理-获取菜单Module/list
+// 菜单管理-获取菜单Module/lis
 export const ModuleList = () => { return req("post", "/api/Module/list") };
 // 菜单管理-根据菜单获取数据
 export const ModuleGet = (params) => { return axios.get("/api/Module/get/" + params + "?token=" + localStorage.getItem('logintoken')) };
@@ -83,8 +72,6 @@ export const RoleRightSave = (params) => { return req("post", "/api/RoleRight/sa
  * 公司管理
  **/
 // 公司管理-获取公司列表
-export const deptList = (params) => { return req("post", "/api/mngservice/api/goods/query", params) };
-export const goodsList = (params) => { return req("post", "/api/mngservice/api/goods/queryGoods", params) };
 // 公司管理-保存（添加编辑）
 export const deptSave = (params) => { return req("post", "/api/Dept/save", params) };
 // 公司管理-删除公司

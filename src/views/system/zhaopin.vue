@@ -71,16 +71,7 @@
 // 导入请求方法
 import {
   recruitQuery,
-  recruitOpen,
-  userDelete,
-  userPwd,
-  userExpireToken,
-  userFlashCache,
-  userLock,
-  UserDeptTree,
-  UserDeptSave,
-  UserDeptdeptTree,
-  UserChangeDept
+  recruitOpen
 } from '../../api/userMG'
 import Pagination from '../../components/Pagination'
 export default {

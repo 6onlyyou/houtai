@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import { deptList, deptSave, deptDelete } from '../../api/userMG'
+import { usergoodsList, deptSave, deptDelete } from '../../api/userMG'
 import Pagination from '../../components/Pagination'
 export default {
   data() {
@@ -147,7 +147,7 @@ export default {
      /***
        * 调用接口，注释上面模拟数据 取消下面注释
        */
-      deptList(parameter)
+     usergoodsList(parameter)
 
         .then(res => {
           this.loading = false
