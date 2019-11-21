@@ -11,7 +11,7 @@
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="formInline" class="user-search">
       <el-form-item label="搜索：">
-        <el-input size="small" v-model="formInline.machineNo" placeholder="输入公告栏标题"></el-input>
+        <el-input size="small" v-model="formInline.title" placeholder="输入公告栏标题"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button size="small" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
@@ -19,8 +19,9 @@
       </el-form-item>
     </el-form>
     <!--列表-->
-    <el-table size="small" :data="listData" highlight-current-row v-loading="loading" border element-loading-text="拼命加载中"
-      style="width: 100%;">
+    <el-table size="small" :data="listData" highlight-current-row v-loading="loading" border
+              element-loading-text="拼命加载中"
+              style="width: 100%;">
       <el-table-column align="center" type="selection" width="60">
       </el-table-column>
       <el-table-column sortable prop="id" label="内容ID" width="200">
@@ -71,7 +72,8 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button size="small" @click="closeDialog">取消</el-button>
-        <el-button size="small" type="primary" :loading="loading" class="title" @click="submitForm('editForm')">保存</el-button>
+        <el-button size="small" type="primary" :loading="loading" class="title" @click="submitForm('editForm')">保存
+        </el-button>
       </div>
     </el-dialog>
   </div>
@@ -85,6 +87,7 @@
     MachineConfigDelete
   } from '../../api/payMG'
   import Pagination from '../../components/Pagination'
+
   export default {
     data() {
       return {
@@ -93,39 +96,6 @@
         loading: false, //是显示加载
         editFormVisible: false, //控制编辑页面显示与隐藏
         title: '添加',
-        payType: [{
-            key: '现金',
-            value: 1
-          },
-          {
-            key: '支付宝',
-            value: 2
-          },
-          {
-            key: '微信',
-            value: 3
-          },
-          {
-            key: 'POS通',
-            value: 4
-          },
-          {
-            key: '闪付',
-            value: 5
-          },
-          {
-            key: 'POS通C扫B',
-            value: 6
-          },
-          {
-            key: '银联二维码',
-            value: 8
-          },
-          {
-            key: '会员余额支付',
-            value: 9
-          }
-        ],
         editForm: {
           tcId: '',
           imgAddress: '',
@@ -135,34 +105,6 @@
           payOpen: '',
 
         },
-        // rules表单验证
-        rules: {
-          machineNo: [{
-            required: true,
-            message: '请输入终端号',
-            trigger: 'blur'
-          }],
-          payType: [{
-            required: true,
-            message: '请选择支付方式',
-            trigger: 'blur'
-          }],
-          configId: [{
-            required: true,
-            message: '请输入配置序号',
-            trigger: 'blur'
-          }],
-          configName: [{
-            required: true,
-            message: '请输入显示名称',
-            trigger: 'blur'
-          }],
-          payOpen: [{
-            required: true,
-            message: '请选择状态',
-            trigger: 'blur'
-          }]
-        },
         formInline: {
           page: 1,
           limit: 10,
@@ -170,12 +112,6 @@
           varName: '',
           token: localStorage.getItem('logintoken')
         },
-        // 删除部门
-        seletedata: {
-          ids: '',
-          token: localStorage.getItem('logintoken')
-        },
-
         userparm: [], //搜索权限
         listData: [], //用户数据
         // 分页参数
@@ -193,10 +129,6 @@
     components: {
       Pagination
     },
-    /**
-     * 数据发生改变
-     */
-
     /**
      * 创建完毕
      */
@@ -248,8 +180,8 @@
       search() {
         this.getdata(this.formInline)
       },
-      //显示编辑界面
-      handleEdit: function(index, row) {
+      //显示编辑/新增界面
+      handleEdit: function (index, row) {
         this.editFormVisible = true
         if (row != undefined && row != 'undefined') {
           this.title = '修改'
@@ -259,43 +191,54 @@
           this.editForm.title = row.title
         } else {
           this.title = '添加'
-          this.editForm.imgAddress = row.imgAddress
-          this.editForm.netAddress = row.netAddress
-          this.editForm.title = row.title
+          this.editForm.id=''
+          this.editForm.imgAddress = ''
+          this.editForm.netAddress =''
+          this.editForm.title = ''
         }
       },
       // 编辑、增加页面保存方法
       submitForm(editData) {
         this.$refs[editData].validate(valid => {
           if (valid) {
-         if(this.title=="修改"){
-           this.$message.error(this.title)
-            MachineConfigset(this.editForm)
-            .then(res => {
-              this.editFormVisible = false
-              this.loading = false
-                this.getdata("")
-                　
-            })
-            .catch(err => {
-              this.editFormVisible = false
-              this.loading = false
-              this.$message.error('支付配置信息保存失败，请稍后再试！')
-            })
-           }else{
-             this.$message.error(this.title)
+            if (this.title == "修改") {
+              MachineConfigset(this.editForm)
+                .then(res => {
+                  this.editFormVisible = false
+                  this.loading = false
+                  if(res.success){
+                    this.$message({
+                      type: 'info',
+                      message: '修改成功'
+                    })
+                  }
+                  this.getdata("")
+                })
+                .catch(err => {
+                  this.editFormVisible = false
+                  this.loading = false
+                  this.$message.error('保存失败，请稍后再试！')
+                })
+            } else {
               MachineConfigSave(this.editForm)
-              .then(res => {
-                this.editFormVisible = false
-                this.loading = false
-                this.getdata("")
-              })
-              .catch(err => {
-                this.editFormVisible = false
-                this.loading = false
-                this.$message.error('支付配置信息保存失败，请稍后再试！')
-              })
-           }
+                .then(res => {
+                  this.editFormVisible = false
+                  this.loading = false
+                  if(res.success){
+                    this.$message({
+                      type: 'info',
+                      message: '修改成功'
+                    })
+                  }
+                  this.getdata("")
+
+                })
+                .catch(err => {
+                  this.editFormVisible = false
+                  this.loading = false
+                  this.$message.error('支付配置信息保存失败，请稍后再试！')
+                })
+            }
 
           } else {
             return false
@@ -305,17 +248,23 @@
       // 删除公告栏信息
       deleteUser(index, row) {
         this.$confirm('确定要删除吗?', '信息', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-          })
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
           .then(() => {
             let data = {
               id: row.id
             }
             MachineConfigDelete(data)
               .then(res => {
-               this.getdata("")
+                if(res.success){
+                  this.$message({
+                    type: 'info',
+                    message: '修改成功'
+                  })
+                }
+                this.getdata("")
               })
               .catch(err => {
                 this.loading = false
