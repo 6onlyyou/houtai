@@ -45,6 +45,11 @@
       <el-table-column align="center" sortable prop="advertisementContent" label="广告内容" min-width="150">
       </el-table-column>
       <el-table-column align="center" sortable prop="advertisementImg" label="广告图片" min-width="120">
+        <template slot-scope="scope">
+          <div>
+            <img v-image-preview :src="scope.row.advertisementImg" style="width: 100px;height: 100px">
+          </div>
+        </template>
       </el-table-column>
       <el-table-column align="center" sortable prop="city" label="城市" min-width="120">
       </el-table-column>

@@ -12,11 +12,6 @@
         <el-input size="small" v-model="formInline.identyType" placeholder=""></el-input>
       </el-form-item>-->
       <el-form-item label="搜索：">
-        <el-select size="small" v-model="formInline.isLock" placeholder="请选择" clearable @change="search">
-          <el-option label="全部" value=""></el-option>
-          <el-option label="开启" value="N"></el-option>
-          <el-option label="关闭" value="Y"></el-option>
-        </el-select>
       </el-form-item>
       <el-form-item label="">
         <el-input size="small" v-model="formInline.city" placeholder="输入地区"></el-input>
@@ -40,6 +35,14 @@
       <el-table-column align="center" sortable prop="nickName" label="用户昵称" width="150">
       </el-table-column>
       <el-table-column align="center" sortable prop="headImg" label="用户头像" width="150">
+        <template slot-scope="scope">
+<!--
+          <img :src="scope.row.headImg" alt="" style="width: 150px;height: 150px">
+-->
+          <div>
+            <img v-image-preview :src="scope.row.headImg" style="width: 100px;height: 100px">
+          </div>
+        </template>
       </el-table-column>
       <el-table-column align="center" sortable prop="cardPhoneNum" label="联系手机号" width="150">
       </el-table-column>
@@ -53,13 +56,12 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="registrationDate" label="注册时间" min-width="120">
       </el-table-column>
-      <!--<el-table-column align="center" sortable prop="state" label="状态" min-width="50">
+      <el-table-column align="center"  prop="state" label="操作" min-width="150">
         <template slot-scope="scope">
-          <el-switch v-model="scope.row.isLock=='0'?nshow:fshow" active-color="#13ce66" inactive-color="#ff4949"
-            @change="editType(scope.$index, scope.row)">
-          </el-switch>
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">+增加金币</el-button>
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">-减少金币</el-button>
         </template>
-      </el-table-column>-->
+      </el-table-column>
 
     </el-table>
     <!-- 分页组件 -->
@@ -154,10 +156,7 @@
           page: 1,
           limit: 10,
           identyType:'2',
-          deptId: '',
-          userName: '',
-          userMobile: '',
-          isLock: ''
+          city: ''
         },
         //用户数据
         userData: [],
@@ -352,37 +351,6 @@
           this.unitparm.deptName = data.name
           //交叉点击节点
         } else {}
-      },
-      // 保存部门
-      unitPermSave() {
-        let len = this.selectdata
-        let ids = []
-        if (len != 0) {
-          for (let i = 0; i < len.length; i++) {
-            ids.push(len[i].userId)
-          }
-        }
-        this.unitparm.userIds = ids.join(',')
-        UserChangeDept(this.unitparm)
-          .then(res => {
-            this.unitAccessshow = false
-            if (res.success) {
-              this.$message({
-                type: 'success',
-                message: '部门设置成功！'
-              })
-              this.getdata(this.formInline)
-            } else {
-              this.$message({
-                type: 'info',
-                message: res.msg
-              })
-            }
-          })
-          .catch(err => {
-            this.loading = false
-            this.$message.error('部门设置失败,请稍后再试！')
-          })
       },
       // 选择复选框事件
       selectChange(val) {
