@@ -13,8 +13,8 @@
       <el-form-item label="搜索：">
         <el-select size="small" v-model="formInline.isLock" placeholder="请选择" clearable @change="search">
           <el-option label="全部" value=""></el-option>
-          <el-option label="开启" value="N"></el-option>
-          <el-option label="关闭" value="Y"></el-option>
+          <el-option label="开启" value="0"></el-option>
+          <el-option label="关闭" value="2"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="">
@@ -248,10 +248,10 @@
         }
         parm.id = row.id
         let state = row.state
-        if (state == '1') {
-          parm.state = '0'
+        if (state == '0') {
+          parm.state = '2'
         } else {
-          parm.state = '1'
+          parm.state = '0'
         }
         // 修改状态
         advertiseOpen(parm).then(res => {
