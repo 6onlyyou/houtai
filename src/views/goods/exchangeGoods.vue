@@ -229,7 +229,7 @@ export default {
         }
       })
     },
-    // 删除公司
+    // 删除兑换信息
     deleteUser(index, row) {
       this.$confirm('确定要删除吗?', '信息', {
         confirmButtonText: '确定',
@@ -237,12 +237,12 @@ export default {
         type: 'warning'
       })
         .then(() => {
-          deptDelete(row.deptId)
+          deptDelete(row.id)
             .then(res => {
               if (res.success) {
                 this.$message({
                   type: 'success',
-                  message: '公司已删除!'
+                  message: '兑换信息已删除!'
                 })
                 this.getdata(this.formInline)
               } else {

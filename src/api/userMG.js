@@ -23,6 +23,16 @@ export const usergoodsList = (params) => { return req("post", "/api/goods/query"
 //商品信息管理
 export const goodsList = (params) => { return req("post", "/api/goods/queryGoods", params) };
 
+export const goodsDelete = (params) => {
+  return axios.get("/mngservice/api/goods/deleteGodds?id=" + params + "&token=" + localStorage.getItem('logintoken')).then(res => res.data)
+/*
+return req("post", "/api/goods/deleteGodds", params)
+*/
+};
+export const goodsEdit = (params) => { return req("post", "/api/goods/editGoods", params) };
+export const goodsSave = (params) => { return req("post", "/api/goods/addGoods", params) };
+
+
 
 // 登录接口
 export const login = (params) => { return loginreq("post", "/api/login", params) };
@@ -68,14 +78,7 @@ export const RoleRightTree = (params) => { return axios.get("/api/RoleRight/tree
 // 角色管理-菜单权限（保存）
 export const RoleRightSave = (params) => { return req("post", "/api/RoleRight/save", params) };
 
-/**
- * 公司管理
- **/
-// 公司管理-获取公司列表
-// 公司管理-保存（添加编辑）
-export const deptSave = (params) => { return req("post", "/api/Dept/save", params) };
-// 公司管理-删除公司
-export const deptDelete = (params) => { return axios.get("/api/Dept/delete?ids=" + params + "&token=" + localStorage.getItem('logintoken')).then(res => res.data) };
+
 
 /**
  * 系统环境变量

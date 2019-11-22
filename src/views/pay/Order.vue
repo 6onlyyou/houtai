@@ -36,16 +36,16 @@
       </el-table-column>
       <el-table-column sortable prop="count" label="虚拟币数量" width="150" show-overflow-tooltip>
       </el-table-column>
-      <el-table-column sortable prop="time" label="时间" width="200" show-overflow-tooltip>
+      <el-table-column sortable prop="time" label="时间" width="300" show-overflow-tooltip>
         <template slot-scope="scope">
           <div>{{scope.row.time|time}}</div>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="操作" min-width="100">
+  <!--    <el-table-column align="center" label="操作" min-width="100">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">预览</el-button>
         </template>
-      </el-table-column>
+      </el-table-column>-->
     </el-table>
     <!-- 分页组件 -->
     <Pagination v-bind:child-msg="pageparm" @callFather="callFather"></Pagination>
@@ -76,31 +76,10 @@ export default {
         { key: '关闭招聘', value: '关闭招聘' },
         { key: '邀请码奖励', value: '邀请码奖励'},
       ],
-      editForm: {
-        id: '',
-        name: '',
-        type: 1,
-        partner: '',
-        subMchId: '',
-        appid: '',
-        notifyUrl: '',
-        signType: '',
-        partnerKey: '',
-        sellerUserId: '',
-        certPath: '',
-        certPassword: '',
-        rsaKey: '',
-        token: localStorage.getItem('logintoken')
-      },
       formInline: {
         page: 1,
         limit: 10,
         type: '',
-        token: localStorage.getItem('logintoken')
-      },
-      // 删除部门
-      seletedata: {
-        ids: '',
         token: localStorage.getItem('logintoken')
       },
       userparm: [], //搜索权限
@@ -168,37 +147,6 @@ export default {
     // 搜索事件
     search() {
       this.getdata(this.formInline)
-    },
-    // 编辑、增加页面保存方法
-    submitForm(editData) {
-      this.$refs[editData].validate(valid => {
-        if (valid) {
-          ConfigSave(this.editForm)
-            .then(res => {
-              this.editFormVisible = false
-              this.loading = false
-              if (res.success) {
-                this.getdata(this.formInline)
-                this.$message({
-                  type: 'success',
-                  message: '公司保存成功！'
-                })
-              } else {
-                this.$message({
-                  type: 'info',
-                  message: res.msg
-                })
-              }
-            })
-            .catch(err => {
-              this.editFormVisible = false
-              this.loading = false
-              this.$message.error('支付配置信息保存失败，请稍后再试！')
-            })
-        } else {
-          return false
-        }
-      })
     },
     // 关闭编辑、增加弹出框
     closeDialog(formName) {
