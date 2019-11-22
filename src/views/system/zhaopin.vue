@@ -31,7 +31,7 @@
     <el-table size="small" @selection-change="selectChange" :data="userData" highlight-current-row v-loading="loading" border element-loading-text="拼命加载中" style="width: 100%;">
       <el-table-column align="center" type="selection" width="50">
       </el-table-column>
-      <el-table-column align="center" sortable prop="id" label="用户账号" width="120">
+      <el-table-column align="center" sortable prop="userId" label="用户账号" width="120">
       </el-table-column>
       <el-table-column align="center" sortable prop="companyName" label="公司名称" width="120">
       </el-table-column>

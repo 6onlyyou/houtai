@@ -227,7 +227,7 @@
                   if(res.success){
                     this.$message({
                       type: 'info',
-                      message: '修改成功'
+                      message: '添加成功'
                     })
                   }
                   this.getdata("")
@@ -261,7 +261,7 @@
                 if(res.success){
                   this.$message({
                     type: 'info',
-                    message: '修改成功'
+                    message: '删除成功'
                   })
                 }
                 this.getdata("")

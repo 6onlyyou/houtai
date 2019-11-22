@@ -11,10 +11,10 @@
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="formInline" class="user-search">
       <el-form-item label="搜索：">
-        <el-input size="small" v-model="formInline.id" placeholder="输入用户ID"></el-input>
+        <el-input size="small" v-model="formInline.userId" placeholder="输入用户ID"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-input size="small" v-model="formInline.orderNo" placeholder="输入用户昵称"></el-input>
+        <el-input size="small" v-model="formInline.nickName" placeholder="输入用户昵称"></el-input>
       </el-form-item>
       <el-form-item>
         <el-select size="small" v-model="formInline.type" placeholder="请选择">
@@ -29,6 +29,8 @@
     <!--列表-->
     <el-table size="small" :data="listData" highlight-current-row v-loading="loading" border element-loading-text="拼命加载中" style="width: 100%;">
       <el-table-column align="center" type="index" width="60">
+      </el-table-column>
+      <el-table-column sortable prop="userId" label="用户ID" width="120" show-overflow-tooltip>
       </el-table-column>
       <el-table-column sortable prop="name" label="消费名称" width="120" show-overflow-tooltip>
       </el-table-column>
@@ -93,11 +95,7 @@ export default {
       formInline: {
         page: 1,
         limit: 10,
-        id: '',
-        orderNo: '',
-        transId: '',
         type: '',
-        orderStatus: 0,
         token: localStorage.getItem('logintoken')
       },
       // 删除部门
