@@ -34,7 +34,7 @@ const req = (method, url, params) => {
         method: method,
         url: "/api/mngservice"+url,
 
-        // url: "/mngservice"+url, //线上
+        //url: "/mngservice"+url, //线上
 
         data: params,
         dataType: "JSONP",

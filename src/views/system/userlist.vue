@@ -56,7 +56,7 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="registrationDate" label="注册时间" min-width="120">
       </el-table-column>
-      <el-table-column align="center"  prop="state" label="操作" min-width="150">
+      <el-table-column align="center"  prop="state" label="操作" min-width="300">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">+增加金币</el-button>
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">-减少金币</el-button>
