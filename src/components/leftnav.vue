@@ -113,7 +113,7 @@ export default {
             {
               menuid: 172,
               icon: 'icon-cus-manage',
-              menuname: '招聘列表',
+              menuname: '招聘信息列表',
               hasThird: 'N',
               url: 'system/zhaopin',
               menus: null
@@ -130,7 +130,7 @@ export default {
             {
               menuid: 172,
               icon: 'icon-cus-manage',
-              menuname: '广告列表',
+              menuname: '广告信息列表',
               hasThird: 'N',
               url: 'system/guanggao',
               menus: null

@@ -4,14 +4,14 @@ import { loginreq, req } from './axiosFun';
 // 招聘管理
 export const recruitQuery = (params) => { return req("post", "/api/recruit/query", params) };
 export const recruitOpen = (params) => {
-  return axios.get("/api/mngservice/api/recruit/open?id=" + params.id + "&state=" + params.state + "&token=" + localStorage.getItem('logintoken'))
-  //return req("post", "/api/mngservice/api/recruit/open", params)
+  return axios.get("/mngservice/api/recruit/open?id=" + params.id + "&state=" + params.state + "&token=" + localStorage.getItem('logintoken'))
+ // return req("get", "/api/mngservice/api/recruit/open", params)
 };
 
 // 广告管理
 export const advertiseQuery = (params) => { return req("post", "/api/advertise/query", params) };
 //export const advertiseOpen = (params) => { return req("get", "/api/advertise/open", params) };
-export const advertiseOpen = (params) => { return axios.get("/api/mngservice/api/advertise/close?id=" + params.id + "&state=" + params.state + "&token=" + localStorage.getItem('logintoken')) };
+export const advertiseOpen = (params) => { return axios.get("/mngservice/api/advertise/close?id=" + params.id + "&state=" + params.state + "&token=" + localStorage.getItem('logintoken')) };
 
 //获取用户列表
 export const userList = (params) => { return req("post", "/api/user/query", params) };
