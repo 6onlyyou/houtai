@@ -13,10 +13,10 @@ export const advertiseQuery = (params) => { return req("post", "/api/advertise/q
 //export const advertiseOpen = (params) => { return req("get", "/api/advertise/open", params) };
 export const advertiseOpen = (params) => { return axios.get("/mngservice/api/advertise/close?id=" + params.id + "&state=" + params.state + "&token=" + localStorage.getItem('logintoken')) };
 
-//获取用户列表
+//用户管理
 export const userList = (params) => { return req("post", "/api/user/query", params) };
-// 用户管理-保存（添加编辑）
-export const userSave = (params) => { return req("post", "/api/User/save", params) };
+
+export const userSave = (params) => { return req("post", "/api/user/editVirtualCurrency", params) };
 
 //用户兑换商品管理
 export const usergoodsList = (params) => { return req("post", "/api/goods/query", params) };
@@ -32,6 +32,13 @@ return req("post", "/api/goods/deleteGodds", params)
 export const goodsEdit = (params) => { return req("post", "/api/goods/editGoods", params) };
 export const goodsSave = (params) => { return req("post", "/api/goods/addGoods", params) };
 
+export const exchangeGoodsEdit = (params) => { return req("post", "/api/goods/editExchangeGoods", params) };
+export const deleteUserExchange = (params) => {
+  return axios.get("/mngservice/api/goods/deleteExchange?id=" + params + "&token=" + localStorage.getItem('logintoken')).then(res => res.data)
+  /*
+  return req("post", "/api/goods/deleteGodds", params)
+  */
+};
 
 
 // 登录接口

@@ -60,11 +60,8 @@
     <!-- 编辑界面 -->
     <el-dialog :title="title" :visible.sync="editFormVisible" width="30%" @click="closeDialog">
       <el-form label-width="120px" :model="editForm" :rules="rules" ref="editForm">
-        <el-form-item label="部门名称" prop="deptName">
-          <el-input size="small" v-model="editForm.deptName" auto-complete="off" placeholder="请输入部门名称"></el-input>
-        </el-form-item>
-        <el-form-item label="部门代码" prop="deptNo">
-          <el-input size="small" v-model="editForm.deptNo" auto-complete="off" placeholder="请输入部门代码"></el-input>
+        <el-form-item label="订单编号" prop="deptName">
+          <el-input size="small" v-model="editForm.trackingNumber" auto-complete="off" placeholder="请输入订单编号"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -76,7 +73,7 @@
 </template>
 
 <script>
-import { usergoodsList, deptSave, deptDelete } from '../../api/userMG'
+import { usergoodsList, exchangeGoodsEdit, deleteUserExchange } from '../../api/userMG'
 import Pagination from '../../components/Pagination'
 export default {
   data() {
@@ -87,17 +84,15 @@ export default {
       editFormVisible: false, //控制编辑页面显示与隐藏
       title: '添加',
       editForm: {
-        deptId: '',
-        deptName: '',
-        deptNo: '',
+        trackingNumber: '',
+        id: '',
         token: localStorage.getItem('logintoken')
       },
       // rules表单验证
       rules: {
-        deptName: [
+        trackingNumber: [
           { required: true, message: '请输入部门名称', trigger: 'blur' }
-        ],
-        deptNo: [{ required: true, message: '请输入部门代码', trigger: 'blur' }]
+        ]
       },
       formInline: {
         id: '',
@@ -188,21 +183,15 @@ export default {
       this.editFormVisible = true
       if (row != undefined && row != 'undefined') {
         this.title = '修改'
-        this.editForm.deptId = row.deptId
-        this.editForm.deptName = row.deptName
-        this.editForm.deptNo = row.deptNo
-      } else {
-        this.title = '添加'
-        this.editForm.deptId = ''
-        this.editForm.deptName = ''
-        this.editForm.deptNo = ''
+        this.editForm.trackingNumber = row.trackingNumber
+        this.editForm.id = row.id
       }
     },
     // 编辑、增加页面保存方法
     submitForm(editData) {
       this.$refs[editData].validate(valid => {
         if (valid) {
-          deptSave(this.editForm)
+          exchangeGoodsEdit(this.editForm)
             .then(res => {
               this.editFormVisible = false
               this.loading = false
@@ -210,7 +199,7 @@ export default {
                 this.getdata(this.formInline)
                 this.$message({
                   type: 'success',
-                  message: '公司保存成功！'
+                  message: '修改成功！'
                 })
               } else {
                 this.$message({
@@ -237,7 +226,7 @@ export default {
         type: 'warning'
       })
         .then(() => {
-          deptDelete(row.id)
+          deleteUserExchange(row.id)
             .then(res => {
               if (res.success) {
                 this.$message({
@@ -254,7 +243,7 @@ export default {
             })
             .catch(err => {
               this.loading = false
-              this.$message.error('公司删除失败，请稍后再试！')
+              this.$message.error('删除失败，请稍后再试！')
             })
         })
         .catch(() => {

@@ -58,21 +58,34 @@
       </el-table-column>
       <el-table-column align="center"  prop="state" label="操作" min-width="300">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">+增加金币</el-button>
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">-减少金币</el-button>
+          <el-button size="mini" @click="handleEdit('1', scope.row)">+增加金币</el-button>
+          <el-button size="mini" @click="handleEdit('2', scope.row)">-减少金币</el-button>
         </template>
       </el-table-column>
 
     </el-table>
     <!-- 分页组件 -->
     <Pagination v-bind:child-msg="pageparm" @callFather="callFather"></Pagination>
+    <!-- 编辑界面 -->
+    <el-dialog :title="title" :visible.sync="editFormVisible" width="30%" @click="closeDialog">
+      <el-form label-width="120px" :model="editForm" :rules="rules" ref="editForm">
+        <el-form-item label="金币数量" prop="deptName">
+          <el-input size="small" v-model="editForm.count" auto-complete="off" placeholder="请输入金币数量"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button size="small" @click="closeDialog">取消</el-button>
+        <el-button size="small" type="primary" :loading="loading" class="title" @click="submitForm('editForm')">保存</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
   // 导入请求方法
   import {
-    userList
+    userList,
+    userSave
   } from '../../api/userMG'
   import Pagination from '../../components/Pagination'
   export default {
@@ -85,15 +98,11 @@
         editFormVisible: false, //控制编辑页面显示与隐藏
         dataAccessshow: false, //控制数据权限显示与隐藏
         unitAccessshow: false, //控制所属单位隐藏与显示
-        // 编辑与添加
+        // 金币修改
         editForm: {
           userId: '',
-          userName: '',
-          userRealName: '',
-          roleId: '',
-          userMobile: '',
-          userEmail: '',
-          userSex: '',
+          count: '',
+          operType: '',
           token: localStorage.getItem('logintoken')
         },
         // 部门参数
@@ -109,45 +118,6 @@
           userName: [{
             required: true,
             message: '请输入用户名',
-            trigger: 'blur'
-          }],
-          userRealName: [{
-            required: true,
-            message: '请输入姓名',
-            trigger: 'blur'
-          }],
-          roleId: [{
-            required: true,
-            message: '请选择角色',
-            trigger: 'blur'
-          }],
-          userMobile: [{
-              required: true,
-              message: '请输入手机号',
-              trigger: 'blur'
-            },
-            {
-              pattern: /^1(3\d|47|5((?!4)\d)|7(0|1|[6-8])|8\d)\d{8,8}$/,
-              required: true,
-              message: '请输入正确的手机号',
-              trigger: 'blur'
-            }
-          ],
-          userEmail: [{
-              required: true,
-              message: '请输入邮箱',
-              trigger: 'blur'
-            },
-            {
-              pattern: /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
-              required: true,
-              message: '请输入正确的邮箱',
-              trigger: 'blur'
-            }
-          ],
-          userSex: [{
-            required: true,
-            message: '请选择性别',
             trigger: 'blur'
           }]
         },
@@ -269,29 +239,20 @@
       },
 
       //显示编辑界面
-      handleEdit: function(index, row) {
+      handleEdit: function(type, row) {
         this.editFormVisible = true
-        if (row != undefined && row != 'undefined') {
-          this.title = '修改用户'
-          this.editForm.userId = row.userId
-          this.editForm.userName = row.userName
-          this.editForm.userRealName = row.userRealName
-          this.editForm.roleId = row.roleId
-          this.editForm.userMobile = row.userMobile
-          this.editForm.userEmail = row.userEmail
-          this.editForm.userSex = row.userSex
-        } else {
-          this.title = '添加用户'
-          this.editForm.userId = ''
-          this.editForm.userName = ''
-          this.editForm.userRealName = ''
-          this.editForm.roleId = ''
-          this.editForm.userMobile = ''
-          this.editForm.userEmail = ''
-          this.editForm.userSex = ''
+        if (type =='1') {
+          this.title = '添加金币'
+          this.editForm.userId = row.id
+          this.editForm.operType = 1
+
+        }else{
+          this.title = '扣除金币'
+          this.editForm.userId = row.id
+          this.editForm.operType = 2
         }
       },
-      // 编辑、添加提交方法
+      // 提交方法
       submitForm(editData) {
         this.$refs[editData].validate(valid => {
           if (valid) {
@@ -304,7 +265,7 @@
                   this.getdata(this.formInline)
                   this.$message({
                     type: 'success',
-                    message: '数据保存成功！'
+                    message: '成功！'
                   })
                 } else {
                   this.$message({
@@ -316,7 +277,7 @@
               .catch(err => {
                 this.editFormVisible = false
                 this.loading = false
-                this.$message.error('保存失败，请稍后再试！')
+                this.$message.error('失败，请稍后再试！')
               })
           } else {
             return false
@@ -357,14 +318,8 @@
         this.selectdata = val
       },
       // 关闭编辑、增加弹出框
-      closeDialog(dialog) {
-        if (dialog == 'edit') {
-          this.editFormVisible = false
-        } else if (dialog == 'perm') {
-          this.dataAccessshow = false
-        } else if (dialog == 'unit') {
-          this.unitAccessshow = false
-        }
+      closeDialog() {
+        this.editFormVisible = false
       },
       //数据格式化
       changeArr(data) {
