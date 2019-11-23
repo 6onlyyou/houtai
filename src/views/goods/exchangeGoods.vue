@@ -60,8 +60,8 @@
     <!-- 编辑界面 -->
     <el-dialog :title="title" :visible.sync="editFormVisible" width="30%" @click="closeDialog">
       <el-form label-width="120px" :model="editForm" :rules="rules" ref="editForm">
-        <el-form-item label="订单编号" prop="deptName">
-          <el-input size="small" v-model="editForm.trackingNumber" auto-complete="off" placeholder="请输入订单编号"></el-input>
+        <el-form-item label="快递编号" prop="deptName">
+          <el-input size="small" v-model="editForm.trackingNumber" auto-complete="off" placeholder="请输入快递编号"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
