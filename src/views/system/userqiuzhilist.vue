@@ -34,6 +34,14 @@
       <el-table-column align="center" sortable prop="nickName" label="用户昵称" width="120">
       </el-table-column>
       <el-table-column align="center" sortable prop="headImg" label="用户头像" width="150">
+        <template slot-scope="scope">
+          <!--
+                    <img :src="scope.row.headImg" alt="" style="width: 150px;height: 150px">
+          -->
+          <div>
+            <img v-image-preview :src="scope.row.headImg" style="width: 100px;height: 100px">
+          </div>
+        </template>
       </el-table-column>
       <el-table-column align="center" sortable prop="phoneNumber" label="绑定手机号" width="150">
       </el-table-column>

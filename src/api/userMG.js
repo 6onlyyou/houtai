@@ -34,7 +34,7 @@ export const goodsSave = (params) => { return req("post", "/api/goods/addGoods",
 
 export const exchangeGoodsEdit = (params) => { return req("post", "/api/goods/editExchangeGoods", params) };
 export const deleteUserExchange = (params) => {
-  return axios.get("/mngservice/api/goods/deleteExchange?id=" + params + "&token=" + localStorage.getItem('logintoken')).then(res => res.data)
+  return axios.get("/mngservice/api/goods/deleteExchangeGodds?id=" + params + "&token=" + localStorage.getItem('logintoken')).then(res => res.data)
   /*
   return req("post", "/api/goods/deleteGodds", params)
   */
