@@ -28,11 +28,11 @@
       <el-table-column sortable prop="goodsName" label="商品名称" width="300">
       </el-table-column>
 
-      <el-table-column sortable prop="goodsImg" label="商品图片" width="300">
+      <el-table-column  prop="goodsImg" label="商品图片" width="300">
 
-        <template slot-scope="scope">
+        <template slot-scope="goodscope">
           <div>
-            <img v-image-preview :src="scope.row.goodsImg" style="width: 100px;height: 100px">
+            <img v-image-preview :src="goodscope.row.goodsImg" style="width: 100px;height: 100px">
           </div>
         </template>
       </el-table-column>

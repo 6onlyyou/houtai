@@ -34,13 +34,13 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="nickName" label="用户昵称" width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="headImg" label="用户头像" width="150">
-        <template slot-scope="scope">
+      <el-table-column align="center"  prop="headImg" label="用户头像" width="150">
+        <template slot-scope="userlistscope">
 <!--
           <img :src="scope.row.headImg" alt="" style="width: 150px;height: 150px">
 -->
           <div>
-            <img v-image-preview :src="scope.row.headImg" style="width: 100px;height: 100px">
+            <img  :src="userlistscope.row.headImg" style="width: 50px;height: 50px">
           </div>
         </template>
       </el-table-column>

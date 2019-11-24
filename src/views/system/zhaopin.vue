@@ -45,7 +45,7 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="workContent" label="工作内容" min-width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="businessLicenseImg" label="营业执照" min-width="120">
+      <el-table-column align="center"  prop="businessLicenseImg" label="营业执照" min-width="120">
         <template slot-scope="scope">
           <div>
             <img v-image-preview :src="scope.row.businessLicenseImg" style="width: 100px;height: 100px">

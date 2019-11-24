@@ -39,7 +39,7 @@
                     <img :src="scope.row.headImg" alt="" style="width: 150px;height: 150px">
           -->
           <div>
-            <img v-image-preview :src="scope.row.headImg" style="width: 100px;height: 100px">
+            <img :src="scope.row.headImg" style="width: 50px;height: 50px">
           </div>
         </template>
       </el-table-column>
@@ -49,7 +49,17 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="labelName" label="求职意向" min-width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="picOrVedioSource" label="简历图片与视频" min-width="200">
+
+      <el-table-column align="center"   prop="picSource" label="简历图片" min-width="200">
+ <!--       <template slot-scope="scope">
+          <div>
+            <img v-image-preview :src="scope.row.picSource" style="width: 100px;height: 100px">
+          </div>
+        </template>-->
+      </el-table-column>
+
+      <el-table-column align="center"   prop="vedioSource" label="简历视频" min-width="200">
+
       </el-table-column>
       <el-table-column align="center" sortable prop="age" label="年龄" min-width="120">
       </el-table-column>

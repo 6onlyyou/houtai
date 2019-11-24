@@ -44,10 +44,10 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="advertisementContent" label="广告内容" min-width="150">
       </el-table-column>
-      <el-table-column align="center" sortable prop="advertisementImg" label="广告图片" min-width="120">
-        <template slot-scope="scope">
+      <el-table-column align="center"  prop="advertisementImg" label="广告图片" min-width="120">
+        <template slot-scope="adverscope">
           <div>
-            <img v-image-preview :src="scope.row.advertisementImg" style="width: 100px;height: 100px">
+            <img v-image-preview :src="adverscope.row.advertisementImg" style="width: 100px;height: 100px">
           </div>
         </template>
       </el-table-column>
