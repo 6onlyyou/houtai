@@ -27,9 +27,6 @@ const loginreq = (method, url, params) => {
 };
 // 通用公用方法
 const req = (method, url, params) => {
-
-
-
     return axios({
         method: method,
         url: "/mngservice"+url, //线上
