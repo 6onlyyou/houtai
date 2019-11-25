@@ -42,7 +42,7 @@ export const deleteUserExchange = (params) => {
 
 
 // 登录接口
-export const login = (params) => { return loginreq("post", "/api/user/checkLogin", params) };
+export const login = (params) => { return req("post", "/api/user/checkLogin", params) };
 
 
 // 获取用户菜单
