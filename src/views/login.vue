@@ -8,7 +8,7 @@
       <el-form-item prop="password">
         <el-input type="password" v-model="ruleForm.password" auto-complete="off" placeholder="密码"></el-input>
       </el-form-item>
-      <el-row>
+<!--      <el-row>
         <el-col :span="12">
           <el-form-item prop="code">
             <el-input type="text" v-model="ruleForm.code" auto-complete="off" placeholder="图形验证码" @keyup.enter.native="submitForm('ruleForm')"></el-input>
@@ -17,7 +17,7 @@
         <el-col :span="12" class="code-box">
           <img :src="ruleForm.codeimg" alt="" class="codeimg" @click="getcode()">
         </el-col>
-      </el-row>
+      </el-row>-->
       <el-checkbox class="remember" v-model="rememberpwd">记住密码</el-checkbox>
       <el-form-item style="width:100%;">
         <el-button type="primary" style="width:100%;" @click="submitForm('ruleForm')" :loading="logining">登录</el-button>
@@ -49,16 +49,16 @@ export default {
       rules: {
         username: [{ required: true, message: '请输入账号', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-        code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
+       // code: [{ required: true, message: '请输入验证码', trigger: 'blur' }]
       }
     }
   },
   // 创建完毕状态(里面是操作)
   created() {
-    this.$message({
+/*    this.$message({
       message: '账号密码及验证码不为空即可',
       type: 'success'
-    })
+    })*/
     // 获取图形验证码
     this.getcode()
     // 获取存在本地的用户名密码
@@ -77,6 +77,13 @@ export default {
     },
     //获取info列表
     submitForm(formName) {
+      if( this.ruleForm.username!="admin" || this.ruleForm.password!='123456'){
+        this.$message({
+          message: '账号密码输入有误',
+          type: 'info'
+        })
+        return;
+      }
       this.$refs[formName].validate(valid => {
         if (valid) {
           this.logining = true
@@ -84,9 +91,10 @@ export default {
           setTimeout(() => {
             this.logining = false
             this.$store.commit('login', 'true')
-            this.$router.push({ path: '/goods/Goods' })
+            this.$router.push({ path: '/machine/Machine' })
           }, 1000)
           // 注释
+
           // login(this.ruleForm).then(res => {
           //   if (res.success) {
           //     if (this.rememberpwd) {

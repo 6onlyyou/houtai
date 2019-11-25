@@ -42,7 +42,9 @@ export const deleteUserExchange = (params) => {
 
 
 // 登录接口
-export const login = (params) => { return loginreq("post", "/api/login", params) };
+export const login = (params) => { return loginreq("post", "/api/user/checkLogin", params) };
+
+
 // 获取用户菜单
 export const menu = (params) => { return axios.get("/api/menu?&token=" + localStorage.getItem('logintoken')).then(res => res.data) };
 // 退出接口
