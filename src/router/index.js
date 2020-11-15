@@ -13,10 +13,8 @@ import Goods from '@/views/goods/Goods';
 // 商品管理
 import exchangeGoods from '@/views/goods/exchangeGoods';
 
-// 机器信息管理
-import Machine from '@/views/machine/Machine';
-// 货道信息管理
-import MachineAisle from '@/views/machine/MachineAisle';
+
+
 
 // 交易订单
 import Order from '@/views/pay/Order';
@@ -30,17 +28,10 @@ import qiuzhi from '@/views/system/userqiuzhilist';
 //招聘列表
 import userlist from '@/views/system/userlist';
 //公告栏管理
-import gonggaolan from '@/views/machine/gonggaolan';
-// 支付配置
-import Config from '@/views/pay/Config';
-/**
- * 数据监控
- */
-// 监控查询
-import druidLogin from '@/views/druid/login';
+import gonggaolan from '@/views/notice/gonggaolan';
 
-// 图表界面
-import statistics from '@/views/charts/statistics';
+
+
 
 // 启用路由
 Vue.use(Router);
@@ -81,20 +72,6 @@ export default new Router({
       path: '/goods/exchangeGoods',
       name: '商品管理',
       component: exchangeGoods,
-      meta: {
-        requireAuth: true
-      }
-    }, {
-      path: '/machine/Machine',
-      name: '机器信息管理',
-      component: Machine,
-      meta: {
-        requireAuth: true
-      }
-    }, {
-      path: '/machine/MachineAisle',
-      name: '货道信息管理',
-      component: MachineAisle,
       meta: {
         requireAuth: true
       }
@@ -141,27 +118,6 @@ export default new Router({
       path: '/machine/gonggaolan',
       name: '支付配置信息',
       component: gonggaolan,
-      meta: {
-        requireAuth: true
-      }
-    }, {
-      path: '/pay/Config',
-      name: '支付配置',
-      component: Config,
-      meta: {
-        requireAuth: true
-      }
-    }, {
-      path: '/druid/login',
-      name: '监控查询',
-      component: druidLogin,
-      meta: {
-        requireAuth: true
-      }
-    }, {
-      path: '/charts/statistics',
-      name: '数据可视化',
-      component: statistics,
       meta: {
         requireAuth: true
       }

@@ -13,8 +13,8 @@
       <el-form-item label="搜索：">
         <el-select size="small" v-model="formInline.state" placeholder="请选择" clearable @change="search" >
           <el-option label="全部" value="" ></el-option>
-          <el-option label="开启" value="0" ></el-option>
-          <el-option label="关闭" value='2' ></el-option>
+          <el-option label="开启" value="2" ></el-option>
+          <el-option label="关闭" value='0' ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="">
@@ -63,7 +63,7 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="state" label="状态" min-width="100">
         <template slot-scope="scope">
-          <el-switch v-model="scope.row.state=='0'?nshow:fshow" active-color="#13ce66" inactive-color="#ff4949" @change="editType(scope.$index, scope.row)">
+          <el-switch v-model="scope.row.state=='0'?fshow:nshow" active-color="#13ce66" inactive-color="#ff4949" @change="editType(scope.$index, scope.row)">
           </el-switch>
         </template>
       </el-table-column>
@@ -375,37 +375,6 @@ export default {
         //交叉点击节点
       } else {
       }
-    },
-    // 保存部门
-    unitPermSave() {
-      let len = this.selectdata
-      let ids = []
-      if (len != 0) {
-        for (let i = 0; i < len.length; i++) {
-          ids.push(len[i].userId)
-        }
-      }
-      this.unitparm.userIds = ids.join(',')
-      UserChangeDept(this.unitparm)
-        .then(res => {
-          this.unitAccessshow = false
-          if (res.success) {
-            this.$message({
-              type: 'success',
-              message: '部门设置成功！'
-            })
-            this.getdata(this.formInline)
-          } else {
-            this.$message({
-              type: 'info',
-              message: res.msg
-            })
-          }
-        })
-        .catch(err => {
-          this.loading = false
-          this.$message.error('部门设置失败,请稍后再试！')
-        })
     },
     // 选择复选框事件
     selectChange(val) {

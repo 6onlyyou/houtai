@@ -5,7 +5,8 @@ import axios from 'axios';
 const req = (method, url, params) => {
     return axios({
         method: method,
-        url: "/mngservice"+url, //线上
+        url: "/proxyApi"+url, //本地
+        // url: "/mngservice"+url, //线上
         data: params,
         dataType: "JSONP",
 

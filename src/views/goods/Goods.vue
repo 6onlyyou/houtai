@@ -59,7 +59,26 @@
                     placeholder="请输入商品价格（虚拟币）"></el-input>
         </el-form-item>
         <el-form-item label="商品图片" prop="goodsImg">
-          <el-input size="small" v-model="editForm.goodsImg" auto-complete="off" placeholder="请输入图片地址"></el-input>
+          <el-row>
+            <el-col :span="24">
+              <input type="hidden" v-model="editForm.goodsImg"/>
+              <el-upload
+                :action="actionUrl"
+                list-type="picture-card"
+                :limit='1'
+                :on-preview="handlePictureCardPreview"
+                :on-success="successHandle"
+                :before-upload="beforeAvatarUpload"
+                :on-remove="handleRemove"
+                :on-exceed="handleExceed">
+                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件</div>
+                <i class="el-icon-plus"></i>
+              </el-upload>
+              <el-dialog :visible.sync="dialogImgVisible">
+                <img width="100%" :src="dialogImageUrl" alt="">
+              </el-dialog>
+            </el-col>
+          </el-row>
         </el-form-item>
 
       </el-form>
@@ -79,6 +98,9 @@
   export default {
     data() {
       return {
+        actionUrl: '/mngservice/files/upload',
+        dialogImageUrl: '',
+        dialogImgVisible: false,
         nshow: true, //switch开启
         fshow: false, //switch关闭
         loading: false, //是显示加载
@@ -139,6 +161,41 @@
      * 里面的方法只有被调用才会执行
      */
     methods: {
+      // 文件上传
+      handleRemove (file, fileList) {
+        console.log(file, fileList)
+      },
+      handlePictureCardPreview (file) {
+        console.log(file.url)
+        this.dialogImageUrl = file.url
+        this.dialogImgVisible = true
+      },
+      successHandle (response) {
+        console.log(response)
+        if (response.code !== 200) {
+          // this.$refs.upload.clearFile() todo 删除已经传入的文件
+          this.$message.error(response.msg)
+        } else {
+          this.editForm.goodsImg = response.data
+        }
+      },
+      handleExceed (files, fileList) {
+        // todo best shote 隐藏第2个上传
+        this.$alert('只能上传一个文件')
+      },
+      beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isPng = file.type === 'image/png';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG && !isPng) {
+          this.$message.error('上传头像图片只能是 JPG或PNG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M || isPng;
+      },
       // 获取列表
       getdata(parameter) {
         this.loading = true
@@ -300,4 +357,4 @@
   }
 </style>
 
- 
+

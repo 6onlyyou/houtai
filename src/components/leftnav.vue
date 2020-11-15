@@ -121,14 +121,14 @@ export default {
           ]
         },
         {
-          menuid: 171,
+          menuid: 173,
           icon: 'li-icon-xitongguanli',
           menuname: '广告管理',
           hasThird: null,
           url: null,
           menus: [
             {
-              menuid: 172,
+              menuid: 174,
               icon: 'icon-cus-manage',
               menuname: '广告信息列表',
               hasThird: 'N',

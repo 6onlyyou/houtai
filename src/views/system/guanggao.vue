@@ -11,10 +11,10 @@
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="formInline" class="user-search">
       <el-form-item label="搜索：">
-        <el-select size="small" v-model="formInline.isLock" placeholder="请选择" clearable @change="search">
+        <el-select size="small" v-model="formInline.state" placeholder="请选择" clearable @change="search">
           <el-option label="全部" value=""></el-option>
-          <el-option label="开启" value="0"></el-option>
-          <el-option label="关闭" value="2"></el-option>
+          <el-option label="开启" value="2"></el-option>
+          <el-option label="关闭" value="0"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="">
@@ -57,7 +57,7 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="state" label="状态" min-width="50">
         <template slot-scope="scope">
-          <el-switch v-model="scope.row.state=='0'?nshow:fshow" active-color="#13ce66" inactive-color="#ff4949"
+          <el-switch v-model="scope.row.state=='0'?fshow:nshow" active-color="#13ce66" inactive-color="#ff4949"
             @change="editType(scope.$index, scope.row)">
           </el-switch>
         </template>
@@ -159,7 +159,7 @@
           deptId: '',
           userName: '',
           userMobile: '',
-          isLock: ''
+          state: ''
         },
         //用户数据
         userData: [],

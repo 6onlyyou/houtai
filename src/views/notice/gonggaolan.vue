@@ -26,16 +26,16 @@
       </el-table-column>
       <el-table-column sortable prop="id" label="内容ID" width="200">
       </el-table-column>
-      <el-table-column sortable prop="netAddress" label="网址" width="200">
+      <el-table-column  prop="netAddress" label="网址" width="200">
       </el-table-column>
-      <el-table-column sortable prop="title" label="标题" width="200">
+      <el-table-column  prop="title" label="标题" width="200">
       </el-table-column>
-      <el-table-column sortable prop="imgAddress" label="图片地址" width="200">
-        <!--
+      <el-table-column prop="imgAddress" label="图片地址" min-width="300" >
         <template slot-scope="scope">
-          <div>{{scope.row.editTime|timestampToTime}}</div>
-          </el-switch>
-        </template>-->
+          <div>
+            <img v-image-preview :src="scope.row.imgAddress" style="width: 100px;height: 100px">
+          </div>
+        </template>
       </el-table-column>
 
       <el-table-column align="center" label="操作" min-width="300">
@@ -61,7 +61,26 @@
           <el-input size="small" v-model="editForm.title" auto-complete="off" placeholder="请输入标题"></el-input>
         </el-form-item>
         <el-form-item label="图片地址" prop="imgAddress">
-          <el-input size="small" v-model="editForm.imgAddress" auto-complete="off" placeholder="请输入图片地址"></el-input>
+          <el-row>
+            <el-col :span="24">
+                <input type="hidden" v-model="editForm.imgAddress"/>
+                <el-upload
+                  :action="actionUrl"
+                  list-type="picture-card"
+                  :limit='1'
+                  :on-preview="handlePictureCardPreview"
+                  :on-success="successHandle"
+                  :before-upload="beforeAvatarUpload"
+                  :on-remove="handleRemove"
+                  :on-exceed="handleExceed">
+                  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件</div>
+                  <i class="el-icon-plus"></i>
+                </el-upload>
+                <el-dialog :visible.sync="dialogImgVisible">
+                  <img width="100%" :src="dialogImageUrl" alt="">
+                </el-dialog>
+            </el-col>
+          </el-row>
         </el-form-item>
         <!--     <el-form-item label="状态" prop="payOpen">
           <el-select size="small" v-model="editForm.payOpen" placeholder="请选择" class="userRole">
@@ -91,6 +110,9 @@
   export default {
     data() {
       return {
+        actionUrl: '/mngservice/files/upload',
+        dialogImageUrl: '',
+        dialogImgVisible: false,
         nshow: true, //switch开启
         fshow: false, //switch关闭
         loading: false, //是显示加载
@@ -187,6 +209,7 @@
           this.title = '修改'
           this.editForm.id = row.id
           this.editForm.imgAddress = row.imgAddress
+          this.dialogImageUrl = row.imgAddress
           this.editForm.netAddress = row.netAddress
           this.editForm.title = row.title
         } else {
@@ -281,12 +304,47 @@
       // 关闭编辑、增加弹出框
       closeDialog() {
         this.editFormVisible = false
+      },
+      // 文件上传
+      handleRemove (file, fileList) {
+        console.log(file, fileList)
+      },
+      handlePictureCardPreview (file) {
+        console.log(file.url)
+        this.dialogImageUrl = file.url
+        this.dialogImgVisible = true
+      },
+      successHandle (response) {
+        console.log(response)
+        if (response.code !== 200) {
+          // this.$refs.upload.clearFile() todo 删除已经传入的文件
+          this.$message.error(response.msg)
+        } else {
+          this.editForm.imgAddress = response.data
+        }
+      },
+      handleExceed (files, fileList) {
+        // todo best shote 隐藏第2个上传
+        this.$alert('只能上传一个文件')
+      },
+      beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isPng = file.type === 'image/png';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG && !isPng) {
+          this.$message.error('上传头像图片只能是 JPG或PNG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M || isPng;
       }
     }
   }
 </script>
 
-<style scoped>
+<style  scoped>
   .user-search {
     margin-top: 20px;
   }

@@ -51,11 +51,11 @@
       </el-table-column>
 
       <el-table-column align="center"   prop="picSource" label="简历图片" min-width="200">
- <!--       <template slot-scope="scope">
+        <template slot-scope="scope">
           <div>
             <img v-image-preview :src="scope.row.picSource" style="width: 100px;height: 100px">
           </div>
-        </template>-->
+        </template>
       </el-table-column>
 
       <el-table-column align="center"   prop="vedioSource" label="简历视频" min-width="200">
@@ -71,7 +71,7 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="registrationDate" label="注册时间" min-width="120">
       </el-table-column>
-   
+
       <!--<el-table-column align="center" sortable prop="state" label="状态" min-width="50">
         <template slot-scope="scope">
           <el-switch v-model="scope.row.isLock=='0'?nshow:fshow" active-color="#13ce66" inactive-color="#ff4949"

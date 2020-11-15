@@ -1,7 +1,7 @@
 # vue搭建后台管理界面模版（PC端）
 ------------------------
 
-<img src="./static/gif.gif" width="100%" height="519px"/>  
+<img src="./static/gif.gif" width="100%" height="519px"/>
 
 
 #### 技术栈
@@ -117,7 +117,7 @@ vue2 + vuex + vue-router + webpack + ES6/7 + axios + elementUI + 阿里图标ico
 
 proxyTable: {
     '/api': {
-        target: 'http://www.konkonyu.com', // 你请求的第三方接口
+        target: 'jiujiu.konkonyu.com', // 你请求的第三方接口
         changeOrigin: true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
         pathRewrite: { // 路径重写，
             '^/api': '/api' // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。

@@ -18,7 +18,7 @@
           <img :src="ruleForm.codeimg" alt="" class="codeimg" @click="getcode()">
         </el-col>
       </el-row>-->
-      <el-checkbox class="remember" v-model="rememberpwd">记住密码</el-checkbox>
+      <el-checkbox class="remember" v-model="rememberpwd" v-if="false">记住密码</el-checkbox>
       <el-form-item style="width:100%;">
         <el-button type="primary" style="width:100%;" @click="submitForm('ruleForm')" :loading="logining">登录</el-button>
       </el-form-item>
@@ -63,7 +63,7 @@ export default {
    // this.getcode()
     // 获取存在本地的用户名密码
     //this.getuserpwd()
-    
+
   },
   // 里面的函数只有调用才会执行
   methods: {
