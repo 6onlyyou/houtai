@@ -15,7 +15,7 @@
       </el-form-item>
       <el-form-item>
         <el-button size="small" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
-        <el-button size="small" type="primary" icon="el-icon-plus" @click="handleEdit()">添加</el-button>
+        <el-button size="small" type="primary" icon="el-icon-plus" @click="handleAddOrEdit()">添加</el-button>
       </el-form-item>
     </el-form>
     <!--列表-->
@@ -40,8 +40,8 @@
       </el-table-column>
 
       <el-table-column align="center" label="操作" min-width="300">
-        <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+        <template slot-scope="scope">`
+          <el-button size="mini" @click="handleAddOrEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button size="mini" type="danger" @click="deleteUser(scope.$index, scope.row.goodsId)">删除</el-button>
         </template>
       </el-table-column>
@@ -123,8 +123,6 @@
         formInline: {
           page: 1,
           limit: 10,
-          varLable: '',
-          varName: '',
           token: localStorage.getItem('logintoken')
         },
         // 删除部门
@@ -234,8 +232,8 @@
       search() {
         this.getdata(this.formInline)
       },
-      //显示编辑界面
-      handleEdit: function (index, row) {
+      //显示新增编辑界面
+      handleAddOrEdit: function (index, row) {
         this.editFormVisible = true
         if (row != undefined && row != 'undefined') {
           this.title = '修改'
@@ -249,6 +247,7 @@
           this.editForm.goodsName = ''
           this.editForm.goodsPrice = ''
           this.editForm.goodsImg = ''
+          this.editForm.id = ''
         }
       },
       // 编辑、增加页面保存方法
@@ -316,7 +315,10 @@
           type: 'warning'
         })
           .then(() => {
-            goodsDelete(row)
+            let params= {
+              id: row,
+            }
+            goodsDelete(params)
               .then(res => {
                 if (res.success) {
                   this.$message({

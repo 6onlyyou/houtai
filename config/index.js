@@ -3,13 +3,13 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-
+const devEnv = require('./dev.env')
 module.exports = {
     dev: {
         // Paths
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
-      proxyTable:  {
+        proxyTable:  devEnv.OPEN_PROXY === false ? {} :{
         '/proxyApi': {
           target: 'http://localhost:8081/mngservice',
           changeOrigin: true,

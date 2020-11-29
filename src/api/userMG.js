@@ -3,16 +3,18 @@ import { loginreq, req } from './axiosFun';
 
 // 招聘管理
 export const recruitQuery = (params) => { return req("post", "/api/recruit/query", params) };
-export const recruitOpen = (params) => {
+/*export const recruitOpen = (params) => {
   return axios.get("/mngservice/api/recruit/open?id=" + params.id + "&state=" + params.state + "&token=" + localStorage.getItem('logintoken'))
  // return req("get", "/api/mngservice/api/recruit/open", params)
+};*/
+export const recruitOpen = (params) => {
+  return req("post", "/api/recruit/open", params)
 };
-
 // 广告管理
 export const advertiseQuery = (params) => { return req("post", "/api/advertise/query", params) };
-//export const advertiseOpen = (params) => { return req("get", "/api/advertise/open", params) };
-export const advertiseOpen = (params) => { return axios.get("/mngservice/api/advertise/close?id=" + params.id + "&state=" + params.state + "&token=" + localStorage.getItem('logintoken')) };
-
+export const advertiseOpen = (params) => {
+  return req("post", "/api/advertise/close", params)
+};
 //用户管理
 export const userList = (params) => { return req("post", "/api/user/query", params) };
 
@@ -24,20 +26,16 @@ export const usergoodsList = (params) => { return req("post", "/api/goods/query"
 export const goodsList = (params) => { return req("post", "/api/goods/queryGoods", params) };
 
 export const goodsDelete = (params) => {
-  return axios.get("/mngservice/api/goods/deleteGodds?id=" + params + "&token=" + localStorage.getItem('logintoken')).then(res => res.data)
-/*
-return req("post", "/api/goods/deleteGodds", params)
-*/
+  // return axios.get("/mngservice/api/goods/deleteGodds?id=" + params + "&token=" + localStorage.getItem('logintoken')).then(res => res.data)
+  return req("post", "/api/goods/deleteGodds", params)
 };
 export const goodsEdit = (params) => { return req("post", "/api/goods/editGoods", params) };
 export const goodsSave = (params) => { return req("post", "/api/goods/addGoods", params) };
 
 export const exchangeGoodsEdit = (params) => { return req("post", "/api/goods/editExchangeGoods", params) };
 export const deleteUserExchange = (params) => {
-  return axios.get("/mngservice/api/goods/deleteExchangeGodds?id=" + params + "&token=" + localStorage.getItem('logintoken')).then(res => res.data)
-  /*
-  return req("post", "/api/goods/deleteGodds", params)
-  */
+  // return axios.get("/mngservice/api/goods/deleteExchangeGodds?id=" + params + "&token=" + localStorage.getItem('logintoken')).then(res => res.data)
+  return req("post", "/api/goods/deleteExchangeGodds", params)
 };
 
 
