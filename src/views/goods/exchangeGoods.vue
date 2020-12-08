@@ -1,12 +1,10 @@
-/**
- * 基础菜单 商品管理
- */
+<!--用户兑换管理-->
 <template>
   <div>
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>用户兑换列表</el-breadcrumb-item>
+      <el-breadcrumb-item>用户兑换管理</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="formInline" class="user-search">
@@ -106,7 +104,7 @@ export default {
         ids: '',
         token: localStorage.getItem('logintoken')
       },
-      
+
       userparm: [], //搜索权限
       listData: [], //用户数据
       // 分页参数

@@ -1,12 +1,10 @@
-/**
- * 系统管理 用户管理
- */
+<!--招聘信息管理-->
 <template>
   <div>
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>招聘列表</el-breadcrumb-item>
+      <el-breadcrumb-item>招聘信息管理</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="formInline" class="user-search" >
@@ -61,7 +59,7 @@
       <el-table-column align="center" sortable prop="publichDate" label="发布时间" min-width="120">
 
       </el-table-column>
-      <el-table-column align="center" sortable prop="state" label="状态" min-width="100">
+      <el-table-column align="center" sortable prop="state" label="状态" min-width="100" fixed="right">
         <template slot-scope="scope">
           <el-switch v-model="scope.row.state=='0'?fshow:nshow" active-color="#13ce66" inactive-color="#ff4949" @change="editType(scope.$index, scope.row)">
           </el-switch>
@@ -247,13 +245,13 @@ export default {
         this.loading = false
         if (res.success == false) {
           this.$message({
-            type: 'info',
+            type: 'warning',
             message: res.msg
           })
         } else {
           this.$message({
             type: 'success',
-            message: '状态修改成功'
+            message: res.msg
           })
           this.getdata(this.formInline)
         }

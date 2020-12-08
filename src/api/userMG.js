@@ -13,7 +13,7 @@ export const recruitOpen = (params) => {
 // 广告管理
 export const advertiseQuery = (params) => { return req("post", "/api/advertise/query", params) };
 export const advertiseOpen = (params) => {
-  return req("post", "/api/advertise/close", params)
+  return req("post", "/api/advertise/open", params)
 };
 //用户管理
 export const userList = (params) => { return req("post", "/api/user/query", params) };

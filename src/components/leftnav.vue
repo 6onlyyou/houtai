@@ -46,7 +46,7 @@ export default {
             {
               menuid: 2,
               icon: 'icon-cat-skuQuery',
-              menuname: '用户兑换列表',
+              menuname: '用户兑换管理',
               hasThird: 'N',
               url: 'goods/exchangeGoods',
               menus: null
@@ -54,7 +54,7 @@ export default {
             {
               menuid: 3,
               icon: 'icon-cat-skuQuery',
-              menuname: '兑换商品列表',
+              menuname: '兑换商品管理',
               hasThird: 'N',
               url: 'goods/Goods',
               menus: null
@@ -71,7 +71,7 @@ export default {
             {
               menuid: 34,
               icon: 'icon-order-manage',
-              menuname: '账单列表',
+              menuname: '账单',
               hasThird: 'N',
               url: 'pay/Order',
               menus: null
@@ -88,7 +88,7 @@ export default {
             {
               menuid: 72,
               icon: 'icon-cus-manage',
-              menuname: '招聘者列表',
+              menuname: '招聘者管理',
               hasThird: 'N',
               url: 'system/userlist',
               menus: null
@@ -96,7 +96,7 @@ export default {
             {
               menuid: 73,
               icon: 'icon-cus-manage',
-              menuname: '求职者列表',
+              menuname: '求职者管理',
               hasThird: 'N',
               url: 'system/userqiuzhilist',
               menus: null
@@ -113,7 +113,7 @@ export default {
             {
               menuid: 172,
               icon: 'icon-cus-manage',
-              menuname: '招聘信息列表',
+              menuname: '招聘信息管理',
               hasThird: 'N',
               url: 'system/zhaopin',
               menus: null
@@ -130,7 +130,7 @@ export default {
             {
               menuid: 174,
               icon: 'icon-cus-manage',
-              menuname: '广告信息列表',
+              menuname: '广告信息管理',
               hasThird: 'N',
               url: 'system/guanggao',
               menus: null
@@ -147,7 +147,7 @@ export default {
             {
               menuid: 129,
               icon: 'icon-provider-manage',
-              menuname: '公告栏列表',
+              menuname: '公告栏管理',
               hasThird: 'N',
               url: 'machine/gonggaolan',
               menus: null

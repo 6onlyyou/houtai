@@ -4,7 +4,7 @@
     <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>招聘者列表</el-breadcrumb-item>
+      <el-breadcrumb-item>招聘者管理</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- 搜索筛选 -->
     <el-form :inline="true" :model="formInline" class="user-search">
@@ -56,7 +56,7 @@
       </el-table-column>
       <el-table-column align="center" sortable prop="registrationDate" label="注册时间" min-width="120">
       </el-table-column>
-      <el-table-column align="center"  prop="state" label="操作" min-width="300">
+      <el-table-column align="center"  prop="state" label="操作" min-width="250"  fixed="right">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit('1', scope.row)">+增加金币</el-button>
           <el-button size="mini" @click="handleEdit('2', scope.row)">-减少金币</el-button>
