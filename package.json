@@ -12,7 +12,7 @@
   "dependencies": {
     "echarts": "^4.2.0-rc.2",
     "element-ui": "^2.3.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "http-proxy-middleware": "^0.18.0",
     "js-md5": "^0.7.3",
     "v-viewer": "^1.4.2",
